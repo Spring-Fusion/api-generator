@@ -13,5 +13,5 @@ public class PostEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-  private String entity;
+  private String entity; 
 }
