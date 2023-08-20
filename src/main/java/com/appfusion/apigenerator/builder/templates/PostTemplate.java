@@ -1,4 +1,4 @@
-package com.appfusion.apigenerator.builder.entities;
+package com.appfusion.apigenerator.builder.templates;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,10 +8,10 @@ import lombok.Data;
 
 @Entity
 @Data
-public class PostEntity {
-
+public class PostTemplate {
+  
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-  private String entity;
+
 }

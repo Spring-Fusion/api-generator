@@ -7,9 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.appfusion.apigenerator.builder.codegenerator.PostGenerator;
 import com.appfusion.apigenerator.builder.entities.PostEntity;
 import com.appfusion.apigenerator.builder.repositories.PostEntityRepository;
-import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 
 @Service
 public class PostEntityService {
@@ -22,13 +22,15 @@ public class PostEntityService {
   }
 
   public ResponseEntity<PostEntity> saveEntity(String requestBody) {
-    PostEntity entity = new PostEntity(requestBody);
+    PostEntity entity = new PostEntity();
+    entity.setEntity(requestBody); 
     return new ResponseEntity<PostEntity>(repository.save(entity), HttpStatus.OK);
   }
   
   public Object generateEntity(Long id) {
      String test = getEntityContentById(id);
-     new EntityUtil().getEntityNameFromJson(test);
+     PostGenerator generator = new PostGenerator();
+     generator.generatePostEntity(test);
      return null;
   }
   

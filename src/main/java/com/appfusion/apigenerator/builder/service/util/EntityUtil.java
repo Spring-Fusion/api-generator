@@ -7,13 +7,13 @@ import org.json.JSONObject;
 
 public class EntityUtil {
 
-  public Object getEntityFromJson(String json) {
+  public String getEntityFromJson(String json) {
     JSONObject jsonObject = new JSONObject(json);
-    return jsonObject.get("entity");
+    return jsonObject.get("entity").toString();
   }
-
-  public Object getEntityNameFromJson(Object object) {
-    return getJsonInstance(object).get("entityName");
+  
+  public Object getEntityNameFromJson(Object json) {
+    return getJsonInstance(json).get("entityName");
   }
 
   public Object getEndPointName(Object object) {
