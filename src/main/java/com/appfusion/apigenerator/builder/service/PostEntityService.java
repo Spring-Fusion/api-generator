@@ -2,7 +2,6 @@ package com.appfusion.apigenerator.builder.service;
 
 import java.util.Optional;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.appfusion.apigenerator.builder.entities.PostEntity;
 import com.appfusion.apigenerator.builder.repositories.PostEntityRepository;
+import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 
 @Service
 public class PostEntityService {
@@ -26,19 +26,19 @@ public class PostEntityService {
     return new ResponseEntity<PostEntity>(repository.save(entity), HttpStatus.OK);
   }
   
-  public Object getEntity(Long id) {
+  public Object generateEntity(Long id) {
+     String test = getEntityContentById(id);
+     new EntityUtil().getEntityNameFromJson(test);
+     return null;
+  }
+  
+  public String getEntityContentById(Long id) {
     Optional<PostEntity> postEntity = repository.findById(id);
     PostEntity entity = null;
     if (postEntity.isPresent()) {
       entity = postEntity.get();
     }
-    return readJson(entity.getEntity());
-  }
-  
-  public Object readJson(String json) {
-    JSONObject jsonObject = new JSONObject(json);
-    Object object = jsonObject.get("entity");
-    return object;
+    return entity.getEntity();
   }
 
 }
