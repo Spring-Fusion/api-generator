@@ -30,7 +30,6 @@ public class PostEntityService {
   public Object generateEntity(Long id) throws Exception {
      String test = getEntityContentById(id);
      PostGenerator generator = new PostGenerator();
-     generator.generatePostEntity(test);
      return null;
   }
   
