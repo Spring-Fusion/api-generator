@@ -16,16 +16,29 @@ public class PostGenerator {
 
   EntityUtil util = new EntityUtil();
 
-  public void generatePostEntity(String json) {
-    JSONObject jsonObject = new JSONObject(util.getEntityFromJson(json)); 
+  public void generatePostEntity(String json) throws Exception {
+    JSONObject jsonObject = new JSONObject(util.getEntityFromJson(json));
+    Object entityName = util.getEntityNameFromJson(new JSONObject(json));
+    System.out.println(entityName);
+    System.out.println(util.getEntityFields(jsonObject));
+    setBuildClass(util.getEntityFields(jsonObject), entityName.toString());
+    
   }
   
-  public void setClassFields(DynamicType.Unloaded<?> generatedClass) {
+  public void setBuildClass(Map<Object, Object> fields, String entityName) throws Exception {
+    DynamicType.Builder<?>
    generatedClass = new ByteBuddy()
        .redefine(PostTemplate.class)
-       .name("builder.generatedClasses.Test")
-       .defineField("nome", String.class, Visibility.PRIVATE)
-       .make();
+       .name("com.appfusion.apigenerator.builder.entities."+entityName);
+       
+    for(Object field: fields.keySet()) {
+      generatedClass = generatedClass.defineField(field.toString(), String.class, Visibility.PRIVATE);
+    }
+    
+    DynamicType.Unloaded<?> loadedClass = generatedClass.make();
+    
+    loadedClass.saveIn(new File("C:/Users/gabriel.reis/Desktop/API - Genrator/api-generator/target/classes/"));
+    
   }
   
   public Map<Object, Object> getFields(JSONObject jsonObject){

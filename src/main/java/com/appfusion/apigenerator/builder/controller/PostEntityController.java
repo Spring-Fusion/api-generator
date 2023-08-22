@@ -23,7 +23,7 @@ public class PostEntityController {
   }
   
   @PostMapping("/createEntity")
-  public void generatePostEntity(@RequestBody Long id) {
+  public void generatePostEntity(@RequestBody Long id) throws Exception {
     System.out.println(service.generateEntity(id));
   }
   

@@ -27,7 +27,7 @@ public class PostEntityService {
     return new ResponseEntity<PostEntity>(repository.save(entity), HttpStatus.OK);
   }
   
-  public Object generateEntity(Long id) {
+  public Object generateEntity(Long id) throws Exception {
      String test = getEntityContentById(id);
      PostGenerator generator = new PostGenerator();
      generator.generatePostEntity(test);
