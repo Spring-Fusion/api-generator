@@ -7,21 +7,28 @@ import org.json.JSONObject;
 
 public class EntityUtil {
 
-  public String getEntityFromJson(String json) {
-    JSONObject jsonObject = new JSONObject(json);
-    return jsonObject.get("entity").toString();
-  }
-  
-  public Object getEntityNameFromJson(Object json) {
-    return getJsonInstance(json).get("entityName");
+  public String getJsonEntity(String json) {
+    return getJsonInstance(json).get("entity").toString();
   }
 
-  public Object getEndPointName(Object object) {
-    return getJsonInstance(object).get("endPointName");
+  public String getJsonEntityName(String json) {
+    return getJsonInstance(json).get("entityName").toString();
   }
 
-  public JSONObject getJsonInstance(Object object) {
-    return new JSONObject(object.toString());
+  public String getJsonEndPoint(String json) {
+    return getJsonInstance(json).get("endPointName").toString();
+  }
+
+  public String getJsonPackage(String json) {
+    return getJsonInstance(json).get("package").toString();
+  }
+
+  public String getTypeFromField(String json) {
+    return getJsonInstance(json).get("type").toString();
+  }
+
+  public JSONObject getJsonInstance(String json) {
+    return new JSONObject(json);
   }
 
   public Map<Object, Object> getEntityFields(JSONObject jsonObject) {

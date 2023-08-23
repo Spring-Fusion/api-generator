@@ -1,5 +1,6 @@
 package com.appfusion.apigenerator.builder.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import com.appfusion.apigenerator.builder.service.PostEntityService;
 @RequestMapping("/entity")
 public class PostEntityController {
   
+  @Autowired
   private PostEntityService service;
   
   public PostEntityController(PostEntityService service) {this.service = service;}

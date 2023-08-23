@@ -23,16 +23,17 @@ public class PostEntityService {
 
   public ResponseEntity<PostEntity> saveEntity(String requestBody) {
     PostEntity entity = new PostEntity();
-    entity.setEntity(requestBody); 
+    entity.setEntity(requestBody);
     return new ResponseEntity<PostEntity>(repository.save(entity), HttpStatus.OK);
   }
-  
-  public Object generateEntity(Long id) throws Exception {
-     String test = getEntityContentById(id);
-     PostGenerator generator = new PostGenerator();
-     return null;
+
+  public ResponseEntity<PostEntity> generateEntity(Long id) throws Exception {
+    String entityContent = getEntityContentById(id);
+    PostGenerator generator = new PostGenerator();
+    generator.generateDynamicEntity(entityContent);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
-  
+
   public String getEntityContentById(Long id) {
     Optional<PostEntity> postEntity = repository.findById(id);
     PostEntity entity = null;
