@@ -7,6 +7,7 @@ import com.appfusion.apigenerator.builder.entities.PostEntity;
 import com.appfusion.apigenerator.builder.resourceLoader.ResourceLoader;
 import com.appfusion.apigenerator.builder.service.util.ControllerUtil;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
+import com.appfusion.apigenerator.builder.service.util.PostUtil;
 import com.appfusion.apigenerator.builder.templates.ControllerTemplate;
 import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
 import com.appfusion.apigenerator.builder.templates.RepositoryTemplate;
@@ -24,7 +25,7 @@ public class PostGenerator {
 
   public static void generateEntity(String json) throws Exception{
     PostEntityTemplate postTemplate = PostEntityTemplate.getPostTemplate();
-    TypeSpec spec = PostEntityTemplate.getPostTypeSpec(json, postTemplate);
+    TypeSpec spec = PostUtil.getPostTypeSpec(json, postTemplate);
     ResourceLoader.saveJavaFile(EntityUtil.getJsonPackage(json) + ".entities", spec);
   }
   
