@@ -11,43 +11,37 @@ import com.appfusion.apigenerator.builder.entities.PostEntity;
 import com.appfusion.apigenerator.builder.resourceLoader.ResourceLoader;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
+import com.appfusion.apigenerator.builder.templates.RepositoryTemplate;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
 
 public class PostGenerator {
 
   EntityUtil util = new EntityUtil();
 
   public ResponseEntity<PostEntity> generateDynamicEntity(String json) throws Exception {
-    PostEntityTemplate postTemplate = PostEntityTemplate.getPostTemplate();
-    TypeSpec spec = PostEntityTemplate.getPostTypeSpec(json, postTemplate);
-    ResourceLoader.saveJavaFile(json, spec);
+    generateEntity(json);
     generateRepository(json);
     generateController(json);
+    generateRepository(json);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  public void generateEntity(String json) throws Exception{
+    PostEntityTemplate postTemplate = PostEntityTemplate.getPostTemplate();
+    TypeSpec spec = PostEntityTemplate.getPostTypeSpec(json, postTemplate);
+    ResourceLoader.saveJavaFile(util.getJsonPackage(json) + ".entities", spec);
+  }
+  
   public void generateRepository(String json) throws Exception {
-    ClassName jpaRepositoryClass = ClassName.get("org.springframework.data.jpa.repository", "JpaRepository");
-    ClassName entityType = ClassName.get(util.getJsonPackage(json), util.getJsonEntityName(json));
-    TypeSpec repositoryInterface = TypeSpec.interfaceBuilder(util.getJsonEntityName(json) + "Repository")
-        .addModifiers(Modifier.PUBLIC).addTypeVariable(TypeVariableName.get("T", entityType))
-        .addTypeVariable(TypeVariableName.get("ID"))
-        .addSuperinterface(ParameterizedTypeName.get(jpaRepositoryClass, entityType, TypeVariableName.get("ID")))
-        .build();
-
-    JavaFile javaFile = JavaFile.builder("com.appfusion.apigenerator.builder.repositories", repositoryInterface)
-        .build();
-
-    javaFile.writeTo(new File("src/main/java"));
-
+    RepositoryTemplate repositoryTemplate = RepositoryTemplate.getDefaultTemplate(json);
+    TypeSpec spec = RepositoryTemplate.getRepositoryTypeSpec(json, repositoryTemplate);
+    ResourceLoader.saveJavaFile(util.getJsonPackage(json) + ".repositories", spec);
   }
 
   public void generateController(String json) throws Exception {
