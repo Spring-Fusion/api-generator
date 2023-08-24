@@ -16,9 +16,7 @@ import com.appfusion.apigenerator.builder.entityContent.GeneratedValueClassName;
 import com.appfusion.apigenerator.builder.entityContent.GenerationTypeClassName;
 import com.appfusion.apigenerator.builder.entityContent.IdClassName;
 import com.appfusion.apigenerator.builder.entityContent.LombokDataClassName;
-import com.appfusion.apigenerator.builder.enums.SpringClasses;
-import com.appfusion.apigenerator.builder.enums.SpringPackages;
-import com.appfusion.apigenerator.builder.interfaces.EntityContent;
+import com.appfusion.apigenerator.builder.resourceLoader.ResourceLoader;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
 import com.squareup.javapoet.AnnotationSpec;
@@ -33,47 +31,49 @@ import com.squareup.javapoet.TypeVariableName;
 
 public class PostGenerator {
 
-
-  
   EntityUtil util = new EntityUtil();
 
   public ResponseEntity<PostEntity> generateDynamicEntity(String json) throws Exception {
-    
-    PostEntityTemplate postTemplate = new PostEntityTemplate(new EntityClassName().getContent(),
-        new IdClassName().getContent(), 
-        new LombokDataClassName().getContent(),
-        new GeneratedValueClassName().getContent(), 
-        new GenerationTypeClassName().getContent());
-
-    //AnnotationSpec generatedValue = AnnotationSpec.builder(postTemplate.getGeneratedValueAnnotation())
-        //.addMember("strategy", "$T.AUTO", postTemplate.getGenerationTypeAnnotation()).build();
-    AnnotationSpec annotation = AnnotationSpec.builder(postTemplate.getEntityAnnotation()).build();
-    //AnnotationSpec id = AnnotationSpec.builder(postTemplate.getIdAnnotation()).build();
-    AnnotationSpec dataLombok = AnnotationSpec.builder(postTemplate.getDataAnnotation()).build();
-
-    /*
-    FieldSpec fieldSpec = FieldSpec.builder(Long.class, "id").addModifiers(Modifier.PRIVATE).addAnnotation(id)
-        .addAnnotation(generatedValue).build();
-   */
-    TypeSpec spec = TypeSpec.classBuilder(util.getJsonEntityName(json)).addModifiers(Modifier.PUBLIC)
-        .addAnnotation(annotation).addAnnotation(dataLombok).addFields(getFields(json, postTemplate)).build();
-
-    JavaFile file = JavaFile.builder(util.getJsonPackage(json), spec).build();
-    file.writeTo(new File("src/main/java"));
-    
-    
-    
+    PostEntityTemplate postTemplate = getDefaultTemplate();
+    TypeSpec spec = getEntityTypeSpec(json, postTemplate);
+    ResourceLoader.saveJavaFile(json, spec);
     generateRepository(json);
     generateController(json);
     return new ResponseEntity<>(HttpStatus.OK);
   }
-
+  
+  public PostEntityTemplate getDefaultTemplate() {
+    PostEntityTemplate postTemplate = new PostEntityTemplate(
+        new EntityClassName().getContent(),
+        new IdClassName().getContent(), 
+        new LombokDataClassName().getContent(),
+        new GeneratedValueClassName().getContent(), 
+        new GenerationTypeClassName().getContent());
+    return postTemplate;
+  }
+  
+  public TypeSpec getEntityTypeSpec(String json, PostEntityTemplate entityTemplate) {
+    return TypeSpec
+    .classBuilder(util.getJsonEntityName(json))
+    .addModifiers(Modifier.PUBLIC)
+    .addAnnotation(getEntityAnnotationSpec(entityTemplate))
+    .addAnnotation(getDataLombokAnntotationSpec(entityTemplate))
+    .addFields(getFields(json, entityTemplate)).build();
+  }
+  
+  public AnnotationSpec getEntityAnnotationSpec(PostEntityTemplate postTemplate) {
+    return AnnotationSpec.builder(postTemplate.getEntityAnnotation()).build();
+  }
+  
+  public AnnotationSpec getDataLombokAnntotationSpec(PostEntityTemplate postTemplate) {
+    return AnnotationSpec.builder(postTemplate.getDataAnnotation()).build();
+  }
 
   public List<FieldSpec> getFields(String json, PostEntityTemplate entityTemplate) {
     Map<Object, Object> fields = util.getEntityFields(util.getJsonInstance(util.getJsonEntity(json)));
     List<FieldSpec> list = new ArrayList<>();
     FieldSpec fieldSpec = getIdFieldSpec(entityTemplate);
-    
+    list.add(fieldSpec);
     for (Object field : fields.keySet()) {
       
       fieldSpec = FieldSpec
