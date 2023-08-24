@@ -11,7 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.appfusion.apigenerator.builder.entities.PostEntity;
+import com.appfusion.apigenerator.builder.enums.SpringClasses;
+import com.appfusion.apigenerator.builder.enums.SpringPackages;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
+import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
@@ -27,16 +30,20 @@ public class PostGenerator {
   EntityUtil util = new EntityUtil();
 
   public ResponseEntity<PostEntity> generateDynamicEntity(String json) throws Exception {
-    ClassName entityAnnotation = ClassName.get("jakarta.persistence", "Entity");
-    ClassName idAnnotation = ClassName.get("jakarta.persistence", "Id");
-    ClassName dataAnnotation = ClassName.get("lombok", "Data");
-    ClassName generatedValueAnnotation = ClassName.get("jakarta.persistence", "GeneratedValue");
+    
+    PostEntityTemplate postTemplate = new PostEntityTemplate(
+        ClassName.get(SpringPackages.JakartaPersistence.value, SpringClasses.Entity.value), 
+        ClassName.get(SpringPackages.JakartaPersistence.value, SpringClasses.Id.value), 
+        ClassName.get(SpringPackages.Lombok.value, SpringClasses.Data.value), 
+        ClassName.get(SpringPackages.JakartaPersistence.value, SpringClasses.GeneratedValue.value),
+        ClassName.get(SpringPackages.JakartaPersistence.value, SpringClasses.GenerationType.value),
+        getFields(json));
 
-    AnnotationSpec generatedValue = AnnotationSpec.builder(generatedValueAnnotation)
-        .addMember("strategy", "$T.AUTO", ClassName.get("jakarta.persistence", "GenerationType")).build();
-    AnnotationSpec annotation = AnnotationSpec.builder(entityAnnotation).build();
-    AnnotationSpec id = AnnotationSpec.builder(idAnnotation).build();
-    AnnotationSpec dataLombok = AnnotationSpec.builder(dataAnnotation).build();
+    AnnotationSpec generatedValue = AnnotationSpec.builder(postTemplate.getGeneratedValueAnnotation())
+        .addMember("strategy", "$T.AUTO", postTemplate.getGenerationTypeAnnotation()).build();
+    AnnotationSpec annotation = AnnotationSpec.builder(postTemplate.getEntityAnnotation()).build();
+    AnnotationSpec id = AnnotationSpec.builder(postTemplate.getIdAnnotation()).build();
+    AnnotationSpec dataLombok = AnnotationSpec.builder(postTemplate.getDataAnnotation()).build();
 
     FieldSpec fieldSpec = FieldSpec.builder(Long.class, "id").addModifiers(Modifier.PRIVATE).addAnnotation(id)
         .addAnnotation(generatedValue).build();
@@ -46,6 +53,9 @@ public class PostGenerator {
 
     JavaFile file = JavaFile.builder(util.getJsonPackage(json), spec).build();
     file.writeTo(new File("src/main/java"));
+    
+    
+    
     generateRepository(json);
     generateController(json);
     return new ResponseEntity<>(HttpStatus.OK);
