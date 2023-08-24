@@ -8,15 +8,13 @@ import com.squareup.javapoet.ClassName;
 
 public class JpaRepositoryClassName implements EntityContent {
 
-  EntityUtil util = new EntityUtil();
-
   @Override
   public ClassName getContent() {
     return ClassName.get(SpringPackages.JpaRepository.value, SpringClasses.JpaRepository.value);
   }
 
   public ClassName getPackgeContent(String json) {
-    return ClassName.get(util.getJsonPackage(json)+".entities", util.getJsonEntityName(json));
+    return ClassName.get(EntityUtil.getJsonPackage(json)+".entities", EntityUtil.getJsonEntityName(json));
   }
 
 }

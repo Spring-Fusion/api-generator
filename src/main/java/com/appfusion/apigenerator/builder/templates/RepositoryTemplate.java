@@ -13,8 +13,6 @@ import lombok.Data;
 
 @Data
 public class RepositoryTemplate {
-
-  static EntityUtil util = new EntityUtil();
   
   private ClassName jpaRepositoryClass;
   private ClassName entityType;
@@ -32,7 +30,7 @@ public class RepositoryTemplate {
   
   public static TypeSpec getRepositoryTypeSpec(String json, RepositoryTemplate repositoryTemplate) {
     return TypeSpec
-        .interfaceBuilder(util.getJsonEntityName(json) + "Repository")
+        .interfaceBuilder(EntityUtil.getJsonEntityName(json) + "Repository")
         .addModifiers(Modifier.PUBLIC)
         .addSuperinterface(ParameterizedTypeName.get(repositoryTemplate.getJpaRepositoryClass(),
             repositoryTemplate.getEntityType(), TypeVariableName.get("Long")))

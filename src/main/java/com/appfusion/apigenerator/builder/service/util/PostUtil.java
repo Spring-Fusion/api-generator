@@ -12,8 +12,6 @@ import com.squareup.javapoet.FieldSpec;
 
 public class PostUtil {
   
-  static EntityUtil util = new EntityUtil();
-  
   public static AnnotationSpec getEntityAnnotationSpec(PostEntityTemplate postTemplate) {
     return AnnotationSpec.builder(postTemplate.getEntityAnnotation()).build();
   }
@@ -23,7 +21,7 @@ public class PostUtil {
   }
 
   public static List<FieldSpec> getFields(String json, PostEntityTemplate entityTemplate) {
-    Map<Object, Object> fields = util.getEntityFields(util.getJsonInstance(util.getJsonEntity(json)));
+    Map<Object, Object> fields = EntityUtil.getEntityFields(EntityUtil.getJsonInstance(EntityUtil.getJsonEntity(json)));
     List<FieldSpec> list = new ArrayList<>();
     FieldSpec fieldSpec = getIdFieldSpec(entityTemplate);
     list.add(fieldSpec);

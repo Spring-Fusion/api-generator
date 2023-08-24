@@ -18,8 +18,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PostEntityTemplate {
-
-  static EntityUtil util = new EntityUtil();
   
   private ClassName entityAnnotation;
   private ClassName idAnnotation;
@@ -48,7 +46,7 @@ public class PostEntityTemplate {
   
   public static TypeSpec getPostTypeSpec(String json, PostEntityTemplate entityTemplate) {
     return TypeSpec
-    .classBuilder(util.getJsonEntityName(json))
+    .classBuilder(EntityUtil.getJsonEntityName(json))
     .addModifiers(Modifier.PUBLIC)
     .addAnnotation(PostUtil.getEntityAnnotationSpec(entityTemplate))
     .addAnnotation(PostUtil.getDataLombokAnntotationSpec(entityTemplate))
