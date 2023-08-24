@@ -1,9 +1,6 @@
 package com.appfusion.apigenerator.builder.codegenerator;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import javax.lang.model.element.Modifier;
 
@@ -11,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.appfusion.apigenerator.builder.entities.PostEntity;
+import com.appfusion.apigenerator.builder.resourceLoader.ResourceLoader;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
+import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
@@ -27,39 +26,12 @@ public class PostGenerator {
   EntityUtil util = new EntityUtil();
 
   public ResponseEntity<PostEntity> generateDynamicEntity(String json) throws Exception {
-    ClassName entityAnnotation = ClassName.get("jakarta.persistence", "Entity");
-    ClassName idAnnotation = ClassName.get("jakarta.persistence", "Id");
-    ClassName dataAnnotation = ClassName.get("lombok", "Data");
-    ClassName generatedValueAnnotation = ClassName.get("jakarta.persistence", "GeneratedValue");
-
-    AnnotationSpec generatedValue = AnnotationSpec.builder(generatedValueAnnotation)
-        .addMember("strategy", "$T.AUTO", ClassName.get("jakarta.persistence", "GenerationType")).build();
-    AnnotationSpec annotation = AnnotationSpec.builder(entityAnnotation).build();
-    AnnotationSpec id = AnnotationSpec.builder(idAnnotation).build();
-    AnnotationSpec dataLombok = AnnotationSpec.builder(dataAnnotation).build();
-
-    FieldSpec fieldSpec = FieldSpec.builder(Long.class, "id").addModifiers(Modifier.PRIVATE).addAnnotation(id)
-        .addAnnotation(generatedValue).build();
-
-    TypeSpec spec = TypeSpec.classBuilder(util.getJsonEntityName(json)).addModifiers(Modifier.PUBLIC)
-        .addAnnotation(annotation).addAnnotation(dataLombok).addField(fieldSpec).addFields(getFields(json)).build();
-
-    JavaFile file = JavaFile.builder(util.getJsonPackage(json), spec).build();
-    file.writeTo(new File("src/main/java"));
+    PostEntityTemplate postTemplate = PostEntityTemplate.getPostTemplate();
+    TypeSpec spec = PostEntityTemplate.getPostTypeSpec(json, postTemplate);
+    ResourceLoader.saveJavaFile(json, spec);
     generateRepository(json);
     generateController(json);
     return new ResponseEntity<>(HttpStatus.OK);
-  }
-
-  public List<FieldSpec> getFields(String json) {
-    Map<Object, Object> fields = util.getEntityFields(util.getJsonInstance(util.getJsonEntity(json)));
-    List<FieldSpec> list = new ArrayList<>();
-
-    for (Object field : fields.keySet()) {
-      FieldSpec fieldSpec = FieldSpec.builder(String.class, field.toString()).addModifiers(Modifier.PRIVATE).build();
-      list.add(fieldSpec);
-    }
-    return list;
   }
 
   public void generateRepository(String json) throws Exception {
