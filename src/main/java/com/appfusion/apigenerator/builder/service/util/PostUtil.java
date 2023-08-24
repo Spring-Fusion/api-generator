@@ -9,10 +9,9 @@ import javax.lang.model.element.Modifier;
 import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.TypeSpec;
 
 public class PostUtil {
-  
-  static EntityUtil util = new EntityUtil();
   
   public static AnnotationSpec getEntityAnnotationSpec(PostEntityTemplate postTemplate) {
     return AnnotationSpec.builder(postTemplate.getEntityAnnotation()).build();
@@ -23,7 +22,7 @@ public class PostUtil {
   }
 
   public static List<FieldSpec> getFields(String json, PostEntityTemplate entityTemplate) {
-    Map<Object, Object> fields = util.getEntityFields(util.getJsonInstance(util.getJsonEntity(json)));
+    Map<Object, Object> fields = EntityUtil.getEntityFields(EntityUtil.getJsonInstance(EntityUtil.getJsonEntity(json)));
     List<FieldSpec> list = new ArrayList<>();
     FieldSpec fieldSpec = getIdFieldSpec(entityTemplate);
     list.add(fieldSpec);
@@ -58,5 +57,14 @@ public class PostUtil {
         .build();
     
     return fieldSpec;
+  }
+  
+  public static TypeSpec getPostTypeSpec(String json, PostEntityTemplate entityTemplate) {
+    return TypeSpec
+    .classBuilder(EntityUtil.getJsonEntityName(json))
+    .addModifiers(Modifier.PUBLIC)
+    .addAnnotation(PostUtil.getEntityAnnotationSpec(entityTemplate))
+    .addAnnotation(PostUtil.getDataLombokAnntotationSpec(entityTemplate))
+    .addFields(PostUtil.getFields(json, entityTemplate)).build();
   }
 }
