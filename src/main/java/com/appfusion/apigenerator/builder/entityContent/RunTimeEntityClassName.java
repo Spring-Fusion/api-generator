@@ -1,5 +1,6 @@
 package com.appfusion.apigenerator.builder.entityContent;
 
+import com.appfusion.apigenerator.builder.enums.Packages;
 import com.appfusion.apigenerator.builder.interfaces.EntityContent;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 import com.squareup.javapoet.ClassName;
@@ -16,7 +17,7 @@ public class RunTimeEntityClassName implements EntityContent {
 
   @Override
   public ClassName getContent() {
-    return ClassName.get(EntityUtil.getJsonPackage(this.json)+".entities", EntityUtil.getJsonEntityName(this.json));
+    return ClassName.get(EntityUtil.getJsonPackage(this.json)+Packages.Entities.value, EntityUtil.getJsonEntityName(this.json));
   }
 
 }

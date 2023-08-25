@@ -1,5 +1,6 @@
 package com.appfusion.apigenerator.builder.entityContent;
 
+import com.appfusion.apigenerator.builder.enums.Packages;
 import com.appfusion.apigenerator.builder.enums.SpringClasses;
 import com.appfusion.apigenerator.builder.enums.SpringPackages;
 import com.appfusion.apigenerator.builder.interfaces.EntityContent;
@@ -14,7 +15,7 @@ public class JpaRepositoryClassName implements EntityContent {
   }
 
   public ClassName getPackgeContent(String json) {
-    return ClassName.get(EntityUtil.getJsonPackage(json)+".entities", EntityUtil.getJsonEntityName(json));
+    return ClassName.get(EntityUtil.getJsonPackage(json)+Packages.Entities.value, EntityUtil.getJsonEntityName(json));
   }
 
 }
