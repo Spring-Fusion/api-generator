@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.lang.model.element.Modifier;
 
+import com.appfusion.apigenerator.builder.dynamicType.DynamicIdentifier;
 import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
@@ -26,20 +27,23 @@ public class PostUtil {
     List<FieldSpec> list = new ArrayList<>();
     FieldSpec fieldSpec = getIdFieldSpec(entityTemplate);
     list.add(fieldSpec);
+    
     for (Object field : fields.keySet()) {
-      
+      String type = getTypePropertiesFromField(fields.get(field.toString()).toString());
       fieldSpec = FieldSpec
-          .builder(String.class, field.toString())
+          .builder(DynamicIdentifier.identifyType(type), field.toString())
           .addModifiers(Modifier.PRIVATE)
           .build();
-      
-      list.add(fieldSpec);
+          list.add(fieldSpec);
     }
     return list;
   }
   
+  public static String getTypePropertiesFromField(String field) {;
+    return EntityUtil.getTypeFromField(field);
+  }
+  
   public static FieldSpec getIdFieldSpec(PostEntityTemplate postTemplate) {
-    
     AnnotationSpec id = AnnotationSpec
         .builder(postTemplate.getIdAnnotation())
         .build();
