@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.appfusion.apigenerator.builder.codegenerator.PostGenerator;
+import com.appfusion.apigenerator.builder.codegenerator.EntityGenerator;
 import com.appfusion.apigenerator.builder.entities.PostEntity;
 import com.appfusion.apigenerator.builder.repositories.PostEntityRepository;
 
@@ -29,7 +29,7 @@ public class PostEntityService {
 
   public ResponseEntity<PostEntity> generateEntity(Long id) throws Exception {
     String entityContent = getEntityContentById(id);
-    PostGenerator generator = new PostGenerator();
+    EntityGenerator generator = new EntityGenerator();
     generator.generateDynamicEntity(entityContent);
     return new ResponseEntity<>(HttpStatus.OK);
   }

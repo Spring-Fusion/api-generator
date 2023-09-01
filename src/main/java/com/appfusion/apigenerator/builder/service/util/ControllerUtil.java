@@ -29,25 +29,42 @@ public class ControllerUtil {
   }
   
   public static FieldSpec getRepositoryField(ControllerTemplate controllerTemplate) {
-    return FieldSpec.builder(controllerTemplate.getRunTimeRepositoryClass(), "repository", Modifier.PRIVATE)
-        .addAnnotation(ControllerUtil.getAutoWiredAnnotation(controllerTemplate)).build();
+    return FieldSpec
+        .builder(controllerTemplate.getRunTimeRepositoryClass(),"repository",Modifier.PRIVATE)
+        .addAnnotation(ControllerUtil.getAutoWiredAnnotation(controllerTemplate))
+        .build();
   }
   
   public static MethodSpec getThisControllerMethod(ControllerTemplate controllerTemplate) {
-    ParameterSpec parameterSpec = ParameterSpec.builder(controllerTemplate.getRunTimeRepositoryClass(), "repository")
+    ParameterSpec parameterSpec = 
+        ParameterSpec
+        .builder(controllerTemplate.getRunTimeRepositoryClass(), "repository")
         .build();
-    return MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).addStatement("this.repository=repository")
+    return MethodSpec
+        .constructorBuilder()
+        .addModifiers(Modifier.PUBLIC)
+        .addStatement("this.repository=repository")
         .addParameter(parameterSpec).build();
   }
 
   public static MethodSpec getSaveEntityMethod(String json, ControllerTemplate controllerTemplate) {
-    ParameterSpec parameterSpec2 = ParameterSpec.builder(controllerTemplate.getRunTimeEntityClass(), "entity")
-        .addAnnotation(ControllerUtil.getAnnotationrequestBodyClass(controllerTemplate)).build();
+    ParameterSpec parameterSpec = 
+        ParameterSpec
+        .builder(controllerTemplate.getRunTimeEntityClass(), "entity")
+        .addAnnotation(ControllerUtil.getAnnotationrequestBodyClass(controllerTemplate))
+        .build();
 
     return MethodSpec.methodBuilder("save" + EntityUtil.getJsonEntityName(json))
-        .addModifiers(Modifier.PUBLIC).addAnnotation(ControllerUtil.getAnnotationPostMapping(json, controllerTemplate))
-        .addParameter(parameterSpec2).addStatement("repository.save(" + "entity" + ");").build();
+        .addModifiers(Modifier.PUBLIC)
+        .addAnnotation(ControllerUtil.getAnnotationPostMapping(json, controllerTemplate))
+        .addParameter(parameterSpec)
+        .addStatement("repository.save(" + "entity" + ");").build();
   }
+  
+  public static MethodSpec getMethodGetAll() {
+    return null;
+  }
+  
   
   public static TypeSpec buildTypeSpec(String json, ControllerTemplate controllerTemplate) {
     return TypeSpec
