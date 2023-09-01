@@ -9,6 +9,7 @@ public enum SpringClasses {
   GenerationType("GenerationType"),
   JpaRepository("JpaRepository"),
   PostMapping("PostMapping"),
+  GetMapping("GetMapping"),
   RequestBody("RequestBody"),
   Autowired("Autowired"),
   RestController("RestController");

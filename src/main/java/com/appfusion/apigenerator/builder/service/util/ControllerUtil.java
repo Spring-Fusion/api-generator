@@ -4,9 +4,11 @@ import javax.lang.model.element.Modifier;
 
 import com.appfusion.apigenerator.builder.templates.ControllerTemplate;
 import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
 public class ControllerUtil {
@@ -22,6 +24,11 @@ public class ControllerUtil {
   public static AnnotationSpec getAnnotationPostMapping(String json, ControllerTemplate template) {
     return AnnotationSpec.builder(template.getRequestEndPoint())
         .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(json)).build();
+  }
+  
+  public static AnnotationSpec getAnnotationGetMapping(String json, ControllerTemplate template) {
+    return AnnotationSpec.builder(template.getGetEndPoint())
+        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(json) +"getAll").build();
   }
 
   public static AnnotationSpec getAnnotationrequestBodyClass(ControllerTemplate template) {
@@ -56,22 +63,30 @@ public class ControllerUtil {
 
     return MethodSpec.methodBuilder("save" + EntityUtil.getJsonEntityName(json))
         .addModifiers(Modifier.PUBLIC)
-        .addAnnotation(ControllerUtil.getAnnotationPostMapping(json, controllerTemplate))
+        .addAnnotation(getAnnotationPostMapping(json, controllerTemplate))
         .addParameter(parameterSpec)
         .addStatement("repository.save(" + "entity" + ");").build();
   }
   
-  public static MethodSpec getMethodGetAll() {
-    return null;
-  }
   
+  public static MethodSpec getMethodGetAll(String json, ControllerTemplate controllerTemplate) {
+    return MethodSpec
+    .methodBuilder("getAll")
+    .returns(ParameterizedTypeName.get(ClassName.get(java.util.List.class), controllerTemplate.getRunTimeEntityClass()))
+    .addAnnotation(getAnnotationGetMapping(json, controllerTemplate))
+    .addModifiers(Modifier.PUBLIC)
+    .addStatement("return repository.findAll()")
+    .build();  
+  }
   
   public static TypeSpec buildTypeSpec(String json, ControllerTemplate controllerTemplate) {
     return TypeSpec
         .classBuilder(EntityUtil.getJsonEntityName(json) + "Controller")
-        .addModifiers(Modifier.PUBLIC).addField(getRepositoryField(controllerTemplate))
+        .addModifiers(Modifier.PUBLIC)
+        .addField(getRepositoryField(controllerTemplate))
         .addMethod(getThisControllerMethod(controllerTemplate))
         .addMethod(getSaveEntityMethod(json, controllerTemplate))
+        .addMethod(getMethodGetAll(json, controllerTemplate))
         .addAnnotation(getRestControllerAnnotation(controllerTemplate))
         .build();
   }
