@@ -11,6 +11,6 @@ public class ControllerGenerator {
   public static void generateController(String json) throws Exception {
     ControllerTemplate controllerTemplate = ControllerTemplate.getControllerTemplate(json);
     ResourceLoader.saveJavaFile(EntityUtil.getJsonPackage(json) + Packages.Controller.value,
-        ControllerUtil.buildTypeSpec(json, controllerTemplate));
+    ControllerUtil.buildTypeSpec(json, controllerTemplate));
   }
 }
