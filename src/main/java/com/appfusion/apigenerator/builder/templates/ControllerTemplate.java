@@ -1,6 +1,7 @@
 package com.appfusion.apigenerator.builder.templates;
 
 import com.appfusion.apigenerator.builder.entityContent.AutoWiredClassName;
+import com.appfusion.apigenerator.builder.entityContent.DeleteEndPointClassName;
 import com.appfusion.apigenerator.builder.entityContent.GetEndPontClassName;
 import com.appfusion.apigenerator.builder.entityContent.RequestBodyClassName;
 import com.appfusion.apigenerator.builder.entityContent.RequestEndPointClassName;
@@ -19,21 +20,22 @@ public class ControllerTemplate {
   private ClassName runTimeRepositoryClass;
   private ClassName requestEndPoint;
   private ClassName getEndPoint;
+  private ClassName deleteEndPoint;
   private ClassName requestBodyClass;
   private ClassName runTimeEntityClass;
 
   public ControllerTemplate(ClassName restController, ClassName autoWired, ClassName runTimeRepositoryClass,
-      ClassName requestEndPoint, ClassName getEndPoint, ClassName requestBodyClass, ClassName runTimeEntityClass) {
+      ClassName requestEndPoint, ClassName getEndPoint, ClassName deleteEdnPoint, ClassName requestBodyClass, ClassName runTimeEntityClass) {
     this.restController = restController;
     this.autoWired = autoWired;
     this.runTimeRepositoryClass = runTimeRepositoryClass;
     this.requestEndPoint = requestEndPoint;
     this.getEndPoint = getEndPoint;
+    this.deleteEndPoint = deleteEdnPoint;
     this.requestBodyClass = requestBodyClass;
     this.runTimeEntityClass = runTimeEntityClass;
   }
 
-  
   public static ControllerTemplate getControllerTemplate(String json) {
     return new ControllerTemplate(
         new RestControllerClassName().getContent(),
@@ -41,13 +43,9 @@ public class ControllerTemplate {
         new RunTimeRepositoryClassName(json).getContent(),
         new RequestEndPointClassName().getContent(),
         new GetEndPontClassName().getContent(),
+        new DeleteEndPointClassName().getContent(),
         new RequestBodyClassName().getContent(),
         new RunTimeEntityClassName(json).getContent()
         );
   }
-
-
-
-
-
 }
