@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.lang.model.element.Modifier;
 
+import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.entityContent.PathVariebleClassName;
 import com.appfusion.apigenerator.builder.templates.ControllerTemplate;
 import com.squareup.javapoet.AnnotationSpec;
@@ -24,38 +25,38 @@ public class ControllerUtil {
     return AnnotationSpec.builder(template.getAutoWired()).build();
   }
 
-  public static AnnotationSpec getAnnotationPostMapping(String json, ControllerTemplate template) {
+  public static AnnotationSpec getAnnotationPostMapping(EntityDTO dto) {
     return AnnotationSpec
-        .builder(template.getRequestEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(json))
+        .builder(dto.getTemplate().getRequestEndPoint())
+        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()))
         .build();
   }
   
-  public static AnnotationSpec getAnnotationGetMapping(String json, ControllerTemplate template) {
+  public static AnnotationSpec getAnnotationGetMapping(EntityDTO dto) {
     return AnnotationSpec
-        .builder(template.getGetEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(json) +"GetAll")
+        .builder(dto.getTemplate().getGetEndPoint())
+        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) +"GetAll")
         .build();
   }
 
-  public static AnnotationSpec getAnnotationGetMappingById(String json, ControllerTemplate template) {
+  public static AnnotationSpec getAnnotationGetMappingById(EntityDTO dto) {
     return AnnotationSpec
-        .builder(template.getGetEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(json) +"GetById/{id}")
+        .builder(dto.getTemplate().getGetEndPoint())
+        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) +"GetById/{id}")
         .build();
   }
   
-  public static AnnotationSpec getAnnotationDeleteMapping(String json, ControllerTemplate template) {
+  public static AnnotationSpec getAnnotationDeleteMapping(EntityDTO dto) {
     return AnnotationSpec
-        .builder(template.getDeleteEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(json) +"DeleteById/{id}")
+        .builder(dto.getTemplate().getDeleteEndPoint())
+        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) +"DeleteById/{id}")
         .build();
   }
 
-    public static AnnotationSpec getAnnotationDeleteMappingAll(String json, ControllerTemplate template) {
+    public static AnnotationSpec getAnnotationDeleteMappingAll(EntityDTO dto) {
     return AnnotationSpec
-        .builder(template.getDeleteEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(json) +"DeleteAll")
+        .builder(dto.getTemplate().getDeleteEndPoint())
+        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) +"DeleteAll")
         .build();
   }
 
@@ -82,56 +83,58 @@ public class ControllerUtil {
         .addParameter(parameterSpec).build();
   }
 
-  public static MethodSpec getSaveEntityMethod(String json, ControllerTemplate controllerTemplate) {
+  public static MethodSpec getSaveEntityMethod(EntityDTO dto) {
     ParameterSpec parameterSpec = 
         ParameterSpec
-        .builder(controllerTemplate.getRunTimeEntityClass(), "entity")
-        .addAnnotation(ControllerUtil.getAnnotationrequestBodyClass(controllerTemplate))
+        .builder(dto.getTemplate().getRunTimeEntityClass(), "entity")
+        .addAnnotation(ControllerUtil.getAnnotationrequestBodyClass(dto.getTemplate()))
         .build();
 
-    return MethodSpec.methodBuilder("save" + EntityUtil.getJsonEntityName(json))
+    return MethodSpec.methodBuilder("save" + EntityUtil.getJsonEntityName(dto.getJson()))
         .addModifiers(Modifier.PUBLIC)
-        .addAnnotation(getAnnotationPostMapping(json, controllerTemplate))
+        .addAnnotation(getAnnotationPostMapping(dto))
         .addParameter(parameterSpec)
         .addStatement("repository.save(" + "entity" + ");").build();
   }
   
-  public static MethodSpec getMethodGetAll(String json, ControllerTemplate controllerTemplate) {
+  public static MethodSpec getMethodGetAll(EntityDTO dto) {
     return MethodSpec
     .methodBuilder("getAll")
-    .returns(ParameterizedTypeName.get(ClassName.get(java.util.List.class), controllerTemplate.getRunTimeEntityClass()))
-    .addAnnotation(getAnnotationGetMapping(json, controllerTemplate))
+    .returns(ParameterizedTypeName.get(ClassName.get(java.util.List.class), 
+    dto.getTemplate().getRunTimeEntityClass()))
+    .addAnnotation(getAnnotationGetMapping(dto))
     .addModifiers(Modifier.PUBLIC)
     .addStatement("return repository.findAll()")
     .build();  
   }
 
-    public static MethodSpec getMethodGetById(String json, ControllerTemplate controllerTemplate) {
+    public static MethodSpec getMethodGetById(EntityDTO dto) {
     return MethodSpec
     .methodBuilder("getById")
     .addParameter(getLongParameter())
-    .returns(ParameterizedTypeName.get(ClassName.get(Optional.class), controllerTemplate.getRunTimeEntityClass()))
-    .addAnnotation(getAnnotationGetMappingById(json, controllerTemplate))
+    .returns(ParameterizedTypeName.get(ClassName.get(Optional.class), 
+    dto.getTemplate().getRunTimeEntityClass()))
+    .addAnnotation(getAnnotationGetMappingById(dto))
     .addModifiers(Modifier.PUBLIC)
     .addStatement("return repository.findById(id)")
     .build();  
   }
   
-  public static MethodSpec getDeleteByIdMethod(String json, ControllerTemplate controllerTemplate ) {
+  public static MethodSpec getDeleteByIdMethod(EntityDTO dto ) {
     return MethodSpec
     .methodBuilder("deleteById")
     .addModifiers(Modifier.PUBLIC)
     .addParameter(getLongParameter())
-    .addAnnotation(getAnnotationDeleteMapping(json, controllerTemplate))
+    .addAnnotation(getAnnotationDeleteMapping(dto))
     .addStatement("repository.deleteById(id)")
     .build();
   }
 
-    public static MethodSpec getDeleteAll(String json, ControllerTemplate controllerTemplate ) {
+    public static MethodSpec getDeleteAll(EntityDTO dto ) {
     return MethodSpec
     .methodBuilder("deleteAll")
     .addModifiers(Modifier.PUBLIC)
-    .addAnnotation(getAnnotationDeleteMappingAll(json, controllerTemplate))
+    .addAnnotation(getAnnotationDeleteMappingAll(dto))
     .addStatement("repository.deleteAll()")
     .build();
   }
@@ -143,18 +146,18 @@ public class ControllerUtil {
             .build();
   }
   
-  public static TypeSpec buildTypeSpec(String json, ControllerTemplate controllerTemplate) {
+  public static TypeSpec buildTypeSpec(EntityDTO dto) {
     return TypeSpec
-        .classBuilder(EntityUtil.getJsonEntityName(json) + "Controller")
+        .classBuilder(EntityUtil.getJsonEntityName(dto.getJson()) + "Controller")
         .addModifiers(Modifier.PUBLIC)
-        .addField(getRepositoryField(controllerTemplate))
-        .addMethod(getThisControllerMethod(controllerTemplate))
-        .addMethod(getSaveEntityMethod(json, controllerTemplate))
-        .addMethod(getMethodGetAll(json, controllerTemplate))
-        .addMethod(getDeleteByIdMethod(json, controllerTemplate))
-        .addMethod(getDeleteAll(json, controllerTemplate))
-        .addMethod(getMethodGetById(json, controllerTemplate))
-        .addAnnotation(getRestControllerAnnotation(controllerTemplate))
+        .addField(getRepositoryField(dto.getTemplate()))
+        .addMethod(getThisControllerMethod(dto.getTemplate()))
+        .addMethod(getSaveEntityMethod(dto))
+        .addMethod(getMethodGetAll(dto))
+        .addMethod(getDeleteByIdMethod(dto))
+        .addMethod(getDeleteAll(dto))
+        .addMethod(getMethodGetById(dto))
+        .addAnnotation(getRestControllerAnnotation(dto.getTemplate()))
         .build();
   }
 
