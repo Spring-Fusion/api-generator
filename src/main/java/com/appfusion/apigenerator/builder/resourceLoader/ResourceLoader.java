@@ -11,7 +11,8 @@ public class ResourceLoader {
   static EntityUtil util = new EntityUtil();
   
   public static void saveJavaFile(String jsonPackage, TypeSpec spec) throws Exception {
-    JavaFile file = JavaFile.builder(jsonPackage, spec).build();
+    JavaFile file = JavaFile.builder(jsonPackage, spec)
+    .build();
     file.writeTo(new File("src/main/java"));
   }
   

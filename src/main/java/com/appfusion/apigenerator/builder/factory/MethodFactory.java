@@ -1,15 +1,12 @@
 package com.appfusion.apigenerator.builder.factory;
 
-import java.util.Optional;
 
 import javax.lang.model.element.Modifier;
 
 import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
-import com.appfusion.apigenerator.builder.templates.ControllerTemplate;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 
 public class MethodFactory {
@@ -46,12 +43,10 @@ public class MethodFactory {
     return MethodSpec
         .methodBuilder("getById")
         .addParameter(ParameterFactory.getLongParameter())
-        .returns(ParameterizedTypeName.get(ClassName.get(Optional.class),
-        dto.getTemplate()
-        .getRunTimeEntityClass()))
+        .returns(Object.class)
         .addAnnotation(AnnotationFactory.getAnnotationGetMappingById(dto))
         .addModifiers(Modifier.PUBLIC)
-        .addStatement("return repository.findById(id)")
+        .addStatement("return repository.findById(id).get()")
         .build();
   }
 
