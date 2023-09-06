@@ -27,6 +27,10 @@ public class EntityUtil {
     return getJsonInstance(json).get("type").toString();
   }
 
+  public static String getClientIDFromJson(String json) {
+    return getJsonInstance(json).get("clientID").toString();
+  }
+  
   public static JSONObject getJsonInstance(String json) {
     return new JSONObject(json);
   }
