@@ -10,26 +10,34 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import com.appfusion.apigenerator.builder.DTOs.JavaFileDTO;
+import com.appfusion.apigenerator.builder.enums.ServerPaths;
 import com.squareup.javapoet.JavaFile;
 
 public class ResourceLoader {
 
   public static void saveJavaFile(JavaFileDTO fileDTO) throws Exception {
     JavaFile file = JavaFile.builder(fileDTO.getJsonPackage(), fileDTO.getSpec()).build();
-    file.writeTo(new File("C:/Users/Meu Computador/Documents/App Fusion/projects/" + fileDTO.getClientID() + "/src/main/java"));
+    file.writeTo(new File(getClientFolderProject(fileDTO.getClientID()) + ServerPaths.JavaSRC.value));
   }
 
   public static void generateNewProject(String clientID) throws Exception {
-    File projectTemplate = new File("C:/Users/Meu Computador/Documents/App Fusion/project_template");
-    File clientProject = new File("C:/Users/Meu Computador/Documents/App Fusion/projects/" + clientID);
-    FileUtils.copyDirectory(projectTemplate, clientProject);
+    FileUtils.copyDirectory(getProjectTemplateDir(), getClientFolderProject(clientID));
+  }
+
+  public static File getProjectTemplateDir() {
+    return new File(ServerPaths.ProjectTemplateDir.value);
+  }
+
+  public static File getClientFolderProject(String clientID) {
+    return new File(ServerPaths.ClientFolder.value + clientID);
+  }
+
+  public static File getClientPublishFolder(String clientID) {
+    return new File(ServerPaths.PublishFolder.value + clientID + ".zip");
   }
 
   public static void publishProject(String clientID) throws Exception {
-    File clientProject = new File("C:/Users/Meu Computador/Documents/App Fusion/projects/" + clientID);
-    File clientProjectDestination = new File(
-        "C:/Users/Meu Computador/Documents/App Fusion/publish_projects/" + clientID + ".zip");
-    zipFolder(clientProject, clientProjectDestination);
+    zipFolder(getClientFolderProject(clientID), getClientPublishFolder(clientID));
   }
 
   public static void zipFolder(File sourceFolder, File destinationZipFile) throws IOException {
@@ -50,4 +58,7 @@ public class ResourceLoader {
     fos.close();
   }
 
+  public static void cleanProjectContent(String clientID) throws Exception {
+    getClientPublishFolder(clientID).delete();
+  }
 }

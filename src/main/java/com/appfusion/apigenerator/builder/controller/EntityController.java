@@ -42,4 +42,9 @@ public class EntityController {
   public void publishProject(@RequestBody String clientId) throws Exception{
     ResourceLoader.publishProject(clientId);
   }
+
+  @PostMapping("/cleanProjectContent")
+  public void cleanProjectContent(@RequestBody String clientId) throws Exception{
+    ResourceLoader.cleanProjectContent(clientId);
+  }
 }
