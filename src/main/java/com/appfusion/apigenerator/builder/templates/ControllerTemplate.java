@@ -26,26 +26,25 @@ public class ControllerTemplate {
 
   public ControllerTemplate(ClassName restController, ClassName autoWired, ClassName runTimeRepositoryClass,
       ClassName requestEndPoint, ClassName getEndPoint, ClassName deleteEdnPoint, ClassName requestBodyClass, ClassName runTimeEntityClass) {
-    this.restController = restController;
-    this.autoWired = autoWired;
-    this.runTimeRepositoryClass = runTimeRepositoryClass;
-    this.requestEndPoint = requestEndPoint;
-    this.getEndPoint = getEndPoint;
-    this.deleteEndPoint = deleteEdnPoint;
-    this.requestBodyClass = requestBodyClass;
-    this.runTimeEntityClass = runTimeEntityClass;
+      this.restController = restController;
+      this.autoWired = autoWired;
+      this.runTimeRepositoryClass = runTimeRepositoryClass;
+      this.requestEndPoint = requestEndPoint;
+      this.getEndPoint = getEndPoint;
+      this.deleteEndPoint = deleteEdnPoint;
+      this.requestBodyClass = requestBodyClass;
+      this.runTimeEntityClass = runTimeEntityClass;
   }
 
   public static ControllerTemplate getControllerTemplate(String json) {
     return new ControllerTemplate(
-        new RestControllerClassName().getContent(),
-        new AutoWiredClassName().getContent(),
-        new RunTimeRepositoryClassName(json).getContent(),
-        new RequestEndPointClassName().getContent(),
-        new GetEndPontClassName().getContent(),
-        new DeleteEndPointClassName().getContent(),
-        new RequestBodyClassName().getContent(),
-        new RunTimeEntityClassName(json).getContent()
-        );
+      new RestControllerClassName().getContent(),
+      new AutoWiredClassName().getContent(),
+      new RunTimeRepositoryClassName(json).getContent(),
+      new RequestEndPointClassName().getContent(),
+      new GetEndPontClassName().getContent(),
+      new DeleteEndPointClassName().getContent(),
+      new RequestBodyClassName().getContent(),
+      new RunTimeEntityClassName(json).getContent());
   }
 }

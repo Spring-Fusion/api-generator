@@ -24,17 +24,19 @@ public class RepositoryTemplate {
   
   public static RepositoryTemplate getDefaultTemplate(String json) {
     return new RepositoryTemplate(
-        new JpaRepositoryClassName().getContent(),
-        new JpaRepositoryClassName().getPackgeContent(json));
+      new JpaRepositoryClassName().getContent(),
+      new JpaRepositoryClassName().getPackgeContent(json));
   }
   
   public static TypeSpec getRepositoryTypeSpec(String json, RepositoryTemplate repositoryTemplate) {
     return TypeSpec
-        .interfaceBuilder(EntityUtil.getJsonEntityName(json) + "Repository")
-        .addModifiers(Modifier.PUBLIC)
-        .addSuperinterface(ParameterizedTypeName.get(repositoryTemplate.getJpaRepositoryClass(),
-            repositoryTemplate.getEntityType(), TypeVariableName.get("Long")))
-        .build();
+      .interfaceBuilder(EntityUtil.getJsonEntityName(json) + "Repository")
+      .addModifiers(Modifier.PUBLIC)
+      .addSuperinterface(
+      ParameterizedTypeName.get(repositoryTemplate.getJpaRepositoryClass(),
+      repositoryTemplate.getEntityType(), 
+      TypeVariableName.get("Long")))
+      .build();
   }
 
 }

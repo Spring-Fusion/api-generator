@@ -29,50 +29,50 @@ public class AnnotationFactory {
 
   public static AnnotationSpec getAnnotationPostMapping(EntityDTO dto) {
     return AnnotationSpec
-        .builder(dto.getTemplate().getRequestEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()))
-        .build();
+      .builder(dto.getTemplate().getRequestEndPoint())
+      .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()))
+      .build();
   }
 
   public static AnnotationSpec getGeneratedValueAnnotation(PostEntityTemplate postTemplate){
     return  AnnotationSpec
-    .builder(postTemplate.getGeneratedValueAnnotation())
-    .addMember("strategy", "$T.AUTO", postTemplate.getGenerationTypeAnnotation())
-    .build();
+      .builder(postTemplate.getGeneratedValueAnnotation())
+      .addMember("strategy", "$T.AUTO", postTemplate.getGenerationTypeAnnotation())
+      .build();
 
   }
 
   public static AnnotationSpec getIdPostIdAnnotation(PostEntityTemplate postTemplate){
     return AnnotationSpec
-    .builder(postTemplate.getIdAnnotation())
-    .build();
+      .builder(postTemplate.getIdAnnotation())
+      .build();
   }
 
   public static AnnotationSpec getAnnotationGetMapping(EntityDTO dto) {
     return AnnotationSpec
-        .builder(dto.getTemplate().getGetEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "GetAll")
-        .build();
+      .builder(dto.getTemplate().getGetEndPoint())
+      .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "GetAll")
+      .build();
   }
 
   public static AnnotationSpec getAnnotationGetMappingById(EntityDTO dto) {
     return AnnotationSpec
-        .builder(dto.getTemplate().getGetEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "GetById/{id}")
-        .build();
+      .builder(dto.getTemplate().getGetEndPoint())
+      .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "GetById/{id}")
+      .build();
   }
 
   public static AnnotationSpec getAnnotationDeleteMapping(EntityDTO dto) {
     return AnnotationSpec
-        .builder(dto.getTemplate().getDeleteEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "DeleteById/{id}")
-        .build();
+      .builder(dto.getTemplate().getDeleteEndPoint())
+      .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "DeleteById/{id}")
+      .build();
   }
 
   public static AnnotationSpec getAnnotationDeleteMappingAll(EntityDTO dto) {
     return AnnotationSpec
-        .builder(dto.getTemplate().getDeleteEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "DeleteAll")
-        .build();
+      .builder(dto.getTemplate().getDeleteEndPoint())
+      .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "DeleteAll")
+      .build();
   }
 }

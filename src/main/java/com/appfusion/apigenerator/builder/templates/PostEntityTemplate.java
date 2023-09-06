@@ -22,20 +22,20 @@ public class PostEntityTemplate {
 
   public PostEntityTemplate(ClassName entityAnnotation, ClassName idAnnotation, ClassName dataAnnotation,
       ClassName generatedValueAnnotation, ClassName generationTypeAnnotation) {
-    this.entityAnnotation = entityAnnotation;
-    this.idAnnotation = idAnnotation;
-    this.dataAnnotation = dataAnnotation;
-    this.generatedValueAnnotation = generatedValueAnnotation;
-    this.generationTypeAnnotation = generationTypeAnnotation;
+      this.entityAnnotation = entityAnnotation;
+      this.idAnnotation = idAnnotation;
+      this.dataAnnotation = dataAnnotation;
+      this.generatedValueAnnotation = generatedValueAnnotation;
+      this.generationTypeAnnotation = generationTypeAnnotation;
   }
   
   public static PostEntityTemplate getPostTemplate() {
     PostEntityTemplate postTemplate = new PostEntityTemplate(
-        new EntityClassName().getContent(),
-        new IdClassName().getContent(), 
-        new LombokDataClassName().getContent(),
-        new GeneratedValueClassName().getContent(), 
-        new GenerationTypeClassName().getContent());
+      new EntityClassName().getContent(),
+      new IdClassName().getContent(), 
+      new LombokDataClassName().getContent(),
+      new GeneratedValueClassName().getContent(), 
+      new GenerationTypeClassName().getContent());
     return postTemplate;
   }
 
