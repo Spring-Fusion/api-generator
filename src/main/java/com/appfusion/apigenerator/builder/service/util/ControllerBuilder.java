@@ -6,8 +6,6 @@ import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.factory.AnnotationFactory;
 import com.appfusion.apigenerator.builder.factory.FieldFactory;
 import com.appfusion.apigenerator.builder.factory.MethodFactory;
-import com.appfusion.apigenerator.builder.templates.ControllerTemplate;
-import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeSpec;
 
 public class ControllerBuilder {
