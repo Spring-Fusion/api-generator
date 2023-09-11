@@ -10,7 +10,6 @@ import com.appfusion.apigenerator.builder.dynamicType.DynamicIdentifier;
 import com.appfusion.apigenerator.builder.factory.AnnotationFactory;
 import com.appfusion.apigenerator.builder.factory.FieldFactory;
 import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
-import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeSpec;
 
