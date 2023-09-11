@@ -2,10 +2,12 @@ package com.appfusion.apigenerator.builder.enums;
 
 public enum ServerPaths {
     JavaSRC("/src/main/java"),
-    ProjectTemplateDir("C:/Users/Meu Computador/Documents/App Fusion/project_template"),
-    ClientFolder("C:/Users/Meu Computador/Documents/App Fusion/projects/"),
-    ClientZipProject("C:/Users/Meu Computador/Documents/App Fusion/publish_projects/"),
-    PublishFolder("C:/Users/Meu Computador/Documents/App Fusion/publish_projects/");
+    ProjectTemplateDir("C:/Api Fusion/project_template"),
+    ProjectTemplateLinux("/Api Fusion/project_template"),
+    ClientFolder("C:/Api Fusion/projects/"),
+    ClientFolderLinux("/Api Fusion/projects/"),
+    PublishFolder("C:/Api Fusion/publish_projects/"),
+    PublishFolderLinux("/Api Fusion/publish_projects/");
 
     public String value;
 

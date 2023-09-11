@@ -14,7 +14,7 @@ import com.appfusion.apigenerator.builder.enums.ServerPaths;
 import com.squareup.javapoet.JavaFile;
 
 public class ResourceLoader {
-
+  //TODO: Implementar a criação das pastas para linux
   public static void saveJavaFile(JavaFileDTO fileDTO) throws Exception {
     JavaFile file = JavaFile.builder(fileDTO.getJsonPackage(), fileDTO.getSpec()).build();
     file.writeTo(new File(getClientFolderProject(fileDTO.getClientID()) + ServerPaths.JavaSRC.value));
