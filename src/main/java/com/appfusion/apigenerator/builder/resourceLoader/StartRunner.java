@@ -28,7 +28,7 @@ public class StartRunner implements ApplicationRunner {
   }
 
   public static void createAllFolders() throws Exception {
-    if (getSO().equals("windows")) {
+    if (ResourceLoader.getSO().equals("windows")) {
       createClientFolderWindows();
       createProjectFolderWindows();
       createTemplateFolderWindows();
@@ -72,16 +72,6 @@ public class StartRunner implements ApplicationRunner {
     return new File(folderPath);
   }
 
-  public static String getSO() throws Exception {
-    String system = System.getProperty("os.name");
-    if (system.toLowerCase().contains("windows")) {
-      return "windows";
-    } else if (system.toLowerCase().contains("linux")) {
-      return "linux";
-    } else {
-      LOG.error("This is an unknown or unsupported operating system.", IllegalArgumentException.class);
-    }
-    return system;
-  }
+
 
 }
