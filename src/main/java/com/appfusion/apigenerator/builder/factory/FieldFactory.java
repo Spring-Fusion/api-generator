@@ -3,7 +3,7 @@ package com.appfusion.apigenerator.builder.factory;
 import javax.lang.model.element.Modifier;
 
 import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
-import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
+import com.appfusion.apigenerator.builder.templates.EntityTemplate;
 import com.squareup.javapoet.FieldSpec;
 
 public class FieldFactory {
@@ -15,7 +15,7 @@ public class FieldFactory {
       .build();
   }
 
-  public static FieldSpec getIdFieldSpec(PostEntityTemplate postTemplate) {
+  public static FieldSpec getIdFieldSpec(EntityTemplate postTemplate) {
     return FieldSpec
       .builder(Long.class, "id")
       .addModifiers(Modifier.PRIVATE).addAnnotation(AnnotationFactory.getIdPostIdAnnotation(postTemplate))

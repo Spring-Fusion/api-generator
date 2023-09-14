@@ -12,12 +12,12 @@ import com.appfusion.apigenerator.builder.entities.PostEntity;
 import com.appfusion.apigenerator.builder.repositories.PostEntityRepository;
 
 @Service
-public class PostEntityService {
+public class EntityService {
 
   @Autowired
   private PostEntityRepository repository;
 
-  public PostEntityService(PostEntityRepository repository) {
+  public EntityService(PostEntityRepository repository) {
     this.repository = repository;
   }
 
@@ -37,10 +37,15 @@ public class PostEntityService {
   public String getEntityContentById(Long id) {
     Optional<PostEntity> postEntity = repository.findById(id);
     PostEntity entity = null;
+    String result =  null;
     if (postEntity.isPresent()) {
       entity = postEntity.get();
     }
-    return entity.getEntity();
+    
+    if (entity!=null) {
+      result = entity.getEntity();
+    }
+    return result;
   }
 
 }

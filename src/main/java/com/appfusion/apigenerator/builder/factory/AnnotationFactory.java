@@ -2,7 +2,7 @@ package com.appfusion.apigenerator.builder.factory;
 
 import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
-import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
+import com.appfusion.apigenerator.builder.templates.EntityTemplate;
 import com.squareup.javapoet.AnnotationSpec;
 
 public class AnnotationFactory {
@@ -19,11 +19,11 @@ public class AnnotationFactory {
     return AnnotationSpec.builder(dto.getTemplate().getRequestBodyClass()).build();
   }
 
-  public static AnnotationSpec getEntityAnnotationSpec(PostEntityTemplate postTemplate) {
+  public static AnnotationSpec getEntityAnnotationSpec(EntityTemplate postTemplate) {
     return AnnotationSpec.builder(postTemplate.getEntityAnnotation()).build();
   }
 
-  public static AnnotationSpec getDataLombokAnntotationSpec(PostEntityTemplate postTemplate) {
+  public static AnnotationSpec getDataLombokAnntotationSpec(EntityTemplate postTemplate) {
     return AnnotationSpec.builder(postTemplate.getDataAnnotation()).build();
   }
 
@@ -34,7 +34,7 @@ public class AnnotationFactory {
       .build();
   }
 
-  public static AnnotationSpec getGeneratedValueAnnotation(PostEntityTemplate postTemplate){
+  public static AnnotationSpec getGeneratedValueAnnotation(EntityTemplate postTemplate){
     return  AnnotationSpec
       .builder(postTemplate.getGeneratedValueAnnotation())
       .addMember("strategy", "$T.AUTO", postTemplate.getGenerationTypeAnnotation())
@@ -42,7 +42,7 @@ public class AnnotationFactory {
 
   }
 
-  public static AnnotationSpec getIdPostIdAnnotation(PostEntityTemplate postTemplate){
+  public static AnnotationSpec getIdPostIdAnnotation(EntityTemplate postTemplate){
     return AnnotationSpec
       .builder(postTemplate.getIdAnnotation())
       .build();

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.appfusion.apigenerator.builder.entities.PostEntity;
 import com.appfusion.apigenerator.builder.resourceLoader.ResourceLoader;
-import com.appfusion.apigenerator.builder.service.PostEntityService;
+import com.appfusion.apigenerator.builder.service.EntityService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,9 +23,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class EntityController {
 
   @Autowired
-  private PostEntityService service;
+  private EntityService service;
 
-  public EntityController(PostEntityService service) {
+  public EntityController(EntityService service) {
     this.service = service;
   }
 

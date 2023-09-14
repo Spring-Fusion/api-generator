@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PostEntityTemplate {
+public class EntityTemplate {
   
   private ClassName entityAnnotation;
   private ClassName idAnnotation;
@@ -20,7 +20,7 @@ public class PostEntityTemplate {
   private ClassName generatedValueAnnotation;
   private ClassName generationTypeAnnotation;
 
-  public PostEntityTemplate(ClassName entityAnnotation, ClassName idAnnotation, ClassName dataAnnotation,
+  public EntityTemplate(ClassName entityAnnotation, ClassName idAnnotation, ClassName dataAnnotation,
       ClassName generatedValueAnnotation, ClassName generationTypeAnnotation) {
       this.entityAnnotation = entityAnnotation;
       this.idAnnotation = idAnnotation;
@@ -29,8 +29,8 @@ public class PostEntityTemplate {
       this.generationTypeAnnotation = generationTypeAnnotation;
   }
   
-  public static PostEntityTemplate getPostTemplate() {
-    PostEntityTemplate postTemplate = new PostEntityTemplate(
+  public static EntityTemplate getPostTemplate() {
+    EntityTemplate postTemplate = new EntityTemplate(
       new EntityClassName().getContent(),
       new IdClassName().getContent(), 
       new LombokDataClassName().getContent(),

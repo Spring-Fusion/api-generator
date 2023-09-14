@@ -1,11 +1,39 @@
 package com.appfusion.apigenerator.builder.service.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.lang.model.element.Modifier;
 
 import org.json.JSONObject;
 
+import com.appfusion.apigenerator.builder.dynamicType.DynamicIdentifier;
+import com.appfusion.apigenerator.builder.factory.FieldFactory;
+import com.appfusion.apigenerator.builder.templates.EntityTemplate;
+import com.squareup.javapoet.FieldSpec;
+
 public class EntityUtil {
+
+  public static List<FieldSpec> getFields(String json, EntityTemplate entityTemplate) {
+    Map<Object, Object> fields = getEntityFields(getJsonInstance(EntityUtil.getJsonEntity(json)));
+    List<FieldSpec> list = new ArrayList<>();
+    FieldSpec fieldSpec = FieldFactory.getIdFieldSpec(entityTemplate);
+    list.add(fieldSpec);
+
+    for (Object field : fields.keySet()) {
+      String type = getTypePropertiesFromField(fields.get(field.toString()).toString());
+      fieldSpec = FieldSpec.builder(DynamicIdentifier.identifyType(type), field.toString())
+          .addModifiers(Modifier.PRIVATE).build();
+      list.add(fieldSpec);
+    }
+    return list;
+  }
+
+  public static String getTypePropertiesFromField(String field) {
+    return EntityUtil.getTypeFromField(field);
+  }
 
   public static String getJsonEntity(String json) {
     return getJsonInstance(json).get("entity").toString();
@@ -30,7 +58,7 @@ public class EntityUtil {
   public static String getClientIDFromJson(String json) {
     return getJsonInstance(json).get("clientID").toString();
   }
-  
+
   public static JSONObject getJsonInstance(String json) {
     return new JSONObject(json);
   }

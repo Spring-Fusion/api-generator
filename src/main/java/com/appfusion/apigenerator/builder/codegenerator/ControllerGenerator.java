@@ -4,7 +4,7 @@ import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.DTOs.JavaFileDTO;
 import com.appfusion.apigenerator.builder.enums.Packages;
 import com.appfusion.apigenerator.builder.resourceLoader.ResourceLoader;
-import com.appfusion.apigenerator.builder.service.util.ControllerBuilder;
+import com.appfusion.apigenerator.builder.service.builder.ControllerBuilder;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 import com.appfusion.apigenerator.builder.templates.ControllerTemplate;
 
