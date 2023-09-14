@@ -10,6 +10,7 @@ import javax.lang.model.element.Modifier;
 import org.json.JSONObject;
 
 import com.appfusion.apigenerator.builder.dynamicType.DynamicIdentifier;
+import com.appfusion.apigenerator.builder.factory.AnnotationFactory;
 import com.appfusion.apigenerator.builder.factory.FieldFactory;
 import com.appfusion.apigenerator.builder.templates.EntityTemplate;
 import com.squareup.javapoet.FieldSpec;
@@ -24,13 +25,28 @@ public class EntityUtil {
 
     for (Object field : fields.keySet()) {
       String type = getTypePropertiesFromField(fields.get(field.toString()).toString());
-      fieldSpec = FieldSpec.builder(DynamicIdentifier.identifyType(type), field.toString())
-          .addModifiers(Modifier.PRIVATE).build();
+      String size = getSizeFromField((fields.get(field.toString()).toString()));
+      com.squareup.javapoet.AnnotationSpec column = AnnotationFactory.getFieldSizeAnnotation(entityTemplate, size);
+      if (column != null) {
+        fieldSpec = 
+                 FieldSpec
+                 .builder(DynamicIdentifier.identifyType(type), field.toString())
+                 .addModifiers(Modifier.PRIVATE)
+                 .addAnnotation(column)
+                 .build();
+      }else {
+        fieldSpec = 
+            FieldSpec
+            .builder(DynamicIdentifier.identifyType(type), field.toString())
+            .addModifiers(Modifier.PRIVATE)
+            .build();
+      }
+      
       list.add(fieldSpec);
     }
     return list;
   }
-
+  
   public static String getTypePropertiesFromField(String field) {
     return EntityUtil.getTypeFromField(field);
   }
@@ -53,6 +69,14 @@ public class EntityUtil {
 
   public static String getTypeFromField(String json) {
     return getJsonInstance(json).get("type").toString();
+  }
+  
+  public static String getSizeFromField(String json) {
+    try {
+      return getJsonInstance(json).get("size").toString();
+    } catch (Exception e) {
+      return null;
+    }
   }
 
   public static String getClientIDFromJson(String json) {

@@ -1,5 +1,6 @@
 package com.appfusion.apigenerator.builder.templates;
 
+import com.appfusion.apigenerator.builder.entityContent.ColumnClassName;
 import com.appfusion.apigenerator.builder.entityContent.EntityClassName;
 import com.appfusion.apigenerator.builder.entityContent.GeneratedValueClassName;
 import com.appfusion.apigenerator.builder.entityContent.GenerationTypeClassName;
@@ -19,14 +20,16 @@ public class EntityTemplate {
   private ClassName dataAnnotation;
   private ClassName generatedValueAnnotation;
   private ClassName generationTypeAnnotation;
+  private ClassName columnAnnotation;
 
   public EntityTemplate(ClassName entityAnnotation, ClassName idAnnotation, ClassName dataAnnotation,
-      ClassName generatedValueAnnotation, ClassName generationTypeAnnotation) {
+      ClassName generatedValueAnnotation, ClassName generationTypeAnnotation, ClassName columnAnnotation) {
       this.entityAnnotation = entityAnnotation;
       this.idAnnotation = idAnnotation;
       this.dataAnnotation = dataAnnotation;
       this.generatedValueAnnotation = generatedValueAnnotation;
       this.generationTypeAnnotation = generationTypeAnnotation;
+      this.columnAnnotation = columnAnnotation;
   }
   
   public static EntityTemplate getPostTemplate() {
@@ -35,7 +38,8 @@ public class EntityTemplate {
       new IdClassName().getContent(), 
       new LombokDataClassName().getContent(),
       new GeneratedValueClassName().getContent(), 
-      new GenerationTypeClassName().getContent());
+      new GenerationTypeClassName().getContent(),
+      new ColumnClassName().getContent());
     return postTemplate;
   }
 

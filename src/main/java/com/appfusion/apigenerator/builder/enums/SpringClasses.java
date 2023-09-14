@@ -14,7 +14,8 @@ public enum SpringClasses {
   RequestBody("RequestBody"),
   Autowired("Autowired"),
   PathVariable("PathVariable"),
-  RestController("RestController");
+  RestController("RestController"),
+  Column("Column");
   
   
   public String value;
