@@ -3,16 +3,16 @@ package com.appfusion.apigenerator.builder.codegenerator;
 import com.appfusion.apigenerator.builder.DTOs.JavaFileDTO;
 import com.appfusion.apigenerator.builder.enums.Packages;
 import com.appfusion.apigenerator.builder.resourceLoader.ResourceLoader;
+import com.appfusion.apigenerator.builder.service.builder.EntityBuilder;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
-import com.appfusion.apigenerator.builder.service.util.PostBuilder;
-import com.appfusion.apigenerator.builder.templates.PostEntityTemplate;
+import com.appfusion.apigenerator.builder.templates.EntityTemplate;
 import com.squareup.javapoet.TypeSpec;
 
 public class PostGenerator {
 
   public static void generatePost(String json) throws Exception {
-    PostEntityTemplate postTemplate = PostEntityTemplate.getPostTemplate();
-    TypeSpec spec = PostBuilder.getPostTypeSpec(json, postTemplate);
+    EntityTemplate postTemplate = EntityTemplate.getPostTemplate();
+    TypeSpec spec = EntityBuilder.getPostTypeSpec(json, postTemplate);
     JavaFileDTO fileDTO = new JavaFileDTO(EntityUtil.getJsonPackage(json) + Packages.Entities.value, spec,
     EntityUtil.getClientIDFromJson(json));
     ResourceLoader.saveJavaFile(fileDTO);

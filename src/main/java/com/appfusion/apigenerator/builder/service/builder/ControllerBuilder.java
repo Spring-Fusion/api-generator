@@ -1,4 +1,4 @@
-package com.appfusion.apigenerator.builder.service.util;
+package com.appfusion.apigenerator.builder.service.builder;
 
 import javax.lang.model.element.Modifier;
 
@@ -6,6 +6,7 @@ import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.factory.AnnotationFactory;
 import com.appfusion.apigenerator.builder.factory.FieldFactory;
 import com.appfusion.apigenerator.builder.factory.MethodFactory;
+import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 import com.squareup.javapoet.TypeSpec;
 
 public class ControllerBuilder {
