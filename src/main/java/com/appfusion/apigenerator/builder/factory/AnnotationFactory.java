@@ -40,7 +40,7 @@ public class AnnotationFactory {
 
   public static AnnotationSpec getColumnAnnotation(EntityTemplate entityTemplate, String size) {
     return AnnotationSpec.builder(entityTemplate.getColumnAnnotation())
-        .addMember("size", size, entityTemplate.getColumnAnnotation()).build();
+        .addMember("length", size, entityTemplate.getColumnAnnotation()).build();
   }
 
   public static AnnotationSpec getIdPostIdAnnotation(EntityTemplate entityTemplate) {
