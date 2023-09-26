@@ -18,7 +18,7 @@ import com.squareup.javapoet.FieldSpec;
 public class EntityUtil {
 
   public static List<FieldSpec> getFields(String json, EntityTemplate entityTemplate) {
-    Map<Object, Object> fields = getEntityFields(getJsonInstance(EntityUtil.getJsonEntity(json)));
+    Map<Object, Object> fields = getEntityFields(getJsonInstance(EntityUtil.getJsonValue(json, "entity")));
     List<FieldSpec> list = new ArrayList<>();
     FieldSpec fieldSpec = FieldFactory.getIdFieldSpec(entityTemplate);
     list.add(fieldSpec);
@@ -48,27 +48,11 @@ public class EntityUtil {
   }
   
   public static String getTypePropertiesFromField(String field) {
-    return EntityUtil.getTypeFromField(field);
+    return getJsonValue(field, "type");
   }
-
-  public static String getJsonEntity(String json) {
-    return getJsonInstance(json).get("entity").toString();
-  }
-
-  public static String getJsonEntityName(String json) {
-    return getJsonInstance(json).get("entityName").toString();
-  }
-
-  public static String getJsonEndPoint(String json) {
-    return getJsonInstance(json).get("endPointName").toString();
-  }
-
-  public static String getJsonPackage(String json) {
-    return getJsonInstance(json).get("package").toString();
-  }
-
-  public static String getTypeFromField(String json) {
-    return getJsonInstance(json).get("type").toString();
+  
+  public static String getJsonValue(String json, String key) {
+    return getJsonInstance(json).get(key).toString();
   }
   
   public static String getSizeFromField(String json) {
@@ -77,10 +61,6 @@ public class EntityUtil {
     } catch (Exception e) {
       return null;
     }
-  }
-
-  public static String getClientIDFromJson(String json) {
-    return getJsonInstance(json).get("clientID").toString();
   }
 
   public static JSONObject getJsonInstance(String json) {

@@ -117,7 +117,7 @@ public class ResourceLoader {
 
   public static void buildProjectFolders() throws Exception {
     if (checkProjectFoldersExistence()) {
-      LOG.info("Folders already created.");
+      LOG.info("Project folders already created.");
     } else {
       createAllFolders();
     }

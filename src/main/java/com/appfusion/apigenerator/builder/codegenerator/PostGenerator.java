@@ -13,8 +13,8 @@ public class PostGenerator {
   public static void generatePost(String json) throws Exception {
     EntityTemplate postTemplate = EntityTemplate.getPostTemplate();
     TypeSpec spec = EntityBuilder.getPostTypeSpec(json, postTemplate);
-    JavaFileDTO fileDTO = new JavaFileDTO(EntityUtil.getJsonPackage(json) + Packages.Entities.value, spec,
-    EntityUtil.getClientIDFromJson(json));
+    JavaFileDTO fileDTO = new JavaFileDTO(EntityUtil.getJsonValue(json, "package") + Packages.Entities.value, spec,
+    EntityUtil.getJsonValue(json, "clientID"));
     ResourceLoader.saveJavaFile(fileDTO);
   }
 

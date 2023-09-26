@@ -11,7 +11,7 @@ public class EntityBuilder {
 
   public static TypeSpec getPostTypeSpec(String json, EntityTemplate entityTemplate) {
     return TypeSpec
-        .classBuilder(EntityUtil.getJsonEntityName(json))
+        .classBuilder(EntityUtil.getJsonValue(json, "entityName"))
         .addModifiers(Modifier.PUBLIC)
         .addAnnotation(AnnotationFactory.getEntityAnnotationSpec(entityTemplate))
         .addAnnotation(AnnotationFactory.getDataLombokAnntotationSpec(entityTemplate))

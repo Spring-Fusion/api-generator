@@ -20,7 +20,7 @@ public class MethodFactory {
   }
 
   public static MethodSpec getSaveEntityMethod(EntityDTO dto) {
-    return MethodSpec.methodBuilder("save" + EntityUtil.getJsonEntityName(dto.getJson()))
+    return MethodSpec.methodBuilder("save" + EntityUtil.getJsonValue(dto.getJson(), "entityName"))
       .addModifiers(Modifier.PUBLIC)
       .addAnnotation(AnnotationFactory.getAnnotationPostMapping(dto))
       .addParameter(ParameterFactory.entityParameter(dto))

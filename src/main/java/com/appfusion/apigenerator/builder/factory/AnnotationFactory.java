@@ -29,7 +29,7 @@ public class AnnotationFactory {
 
   public static AnnotationSpec getAnnotationPostMapping(EntityDTO dto) {
     return AnnotationSpec.builder(dto.getTemplate().getRequestEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson())).build();
+        .addMember("value", "$S", "/" + EntityUtil.getJsonValue(dto.getJson(), "endPointName")).build();
   }
 
   public static AnnotationSpec getGeneratedValueAnnotation(EntityTemplate entityTemplate) {
@@ -49,22 +49,24 @@ public class AnnotationFactory {
 
   public static AnnotationSpec getAnnotationGetMapping(EntityDTO dto) {
     return AnnotationSpec.builder(dto.getTemplate().getGetEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "GetAll").build();
+        .addMember("value", "$S", "/" + EntityUtil.getJsonValue(dto.getJson(), "endPointName") + "GetAll").build();
   }
 
   public static AnnotationSpec getAnnotationGetMappingById(EntityDTO dto) {
     return AnnotationSpec.builder(dto.getTemplate().getGetEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "GetById/{id}").build();
+        .addMember("value", "$S", "/" + EntityUtil.getJsonValue(dto.getJson(), "endPointName") + "GetById/{id}")
+        .build();
   }
 
   public static AnnotationSpec getAnnotationDeleteMapping(EntityDTO dto) {
     return AnnotationSpec.builder(dto.getTemplate().getDeleteEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "DeleteById/{id}").build();
+        .addMember("value", "$S", "/" + EntityUtil.getJsonValue(dto.getJson(), "endPointName") + "DeleteById/{id}")
+        .build();
   }
 
   public static AnnotationSpec getAnnotationDeleteMappingAll(EntityDTO dto) {
     return AnnotationSpec.builder(dto.getTemplate().getDeleteEndPoint())
-        .addMember("value", "$S", "/" + EntityUtil.getJsonEndPoint(dto.getJson()) + "DeleteAll").build();
+        .addMember("value", "$S", "/" + EntityUtil.getJsonValue(dto.getJson(), "endPointName") + "DeleteAll").build();
   }
 
   public static AnnotationSpec getFieldSizeAnnotation(EntityTemplate entityTemplate, String size) {

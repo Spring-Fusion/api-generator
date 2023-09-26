@@ -15,7 +15,8 @@ public class JpaRepositoryClassName implements EntityContent {
   }
 
   public ClassName getPackgeContent(String json) {
-    return ClassName.get(EntityUtil.getJsonPackage(json)+Packages.Entities.value, EntityUtil.getJsonEntityName(json));
+    return ClassName.get(EntityUtil.getJsonValue(json, "package") + Packages.Entities.value,
+        EntityUtil.getJsonValue(json, "entityName"));
   }
 
 }

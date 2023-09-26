@@ -30,7 +30,7 @@ public class RepositoryTemplate {
   
   public static TypeSpec getRepositoryTypeSpec(String json, RepositoryTemplate repositoryTemplate) {
     return TypeSpec
-      .interfaceBuilder(EntityUtil.getJsonEntityName(json) + "Repository")
+      .interfaceBuilder(EntityUtil.getJsonValue(json, "entityName") + "Repository")
       .addModifiers(Modifier.PUBLIC)
       .addSuperinterface(
       ParameterizedTypeName.get(repositoryTemplate.getJpaRepositoryClass(),

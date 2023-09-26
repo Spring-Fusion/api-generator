@@ -17,8 +17,8 @@ public class RunTimeRepositoryClassName implements EntityContent {
 
   @Override
   public ClassName getContent() {
-    return ClassName.get(EntityUtil.getJsonPackage(this.json) + Packages.Repositories.value,
-        EntityUtil.getJsonEntityName(this.json) + "Repository");
+    return ClassName.get(EntityUtil.getJsonValue(this.json, "package") + Packages.Repositories.value,
+        EntityUtil.getJsonValue(json, "entityName") + "Repository");
   }
 
 }
