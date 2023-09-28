@@ -24,7 +24,7 @@ public class MethodFactory {
       .addModifiers(Modifier.PUBLIC)
       .addAnnotation(AnnotationFactory.getAnnotationPostMapping(dto))
       .addParameter(ParameterFactory.entityParameter(dto))
-      .addStatement("repository.save(" + "entity" + ");").build();
+      .addStatement("repository.save(" + "entity" + ")").build();
   }
 
   public static MethodSpec getMethodGetAll(EntityDTO dto) {
