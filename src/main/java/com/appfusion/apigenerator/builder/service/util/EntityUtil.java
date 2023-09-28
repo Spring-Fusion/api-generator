@@ -18,69 +18,38 @@ import com.squareup.javapoet.FieldSpec;
 public class EntityUtil {
 
   public static List<FieldSpec> getFields(String json, EntityTemplate entityTemplate) {
-    Map<Object, Object> fields = getEntityFields(getJsonInstance(EntityUtil.getJsonEntity(json)));
+    Map<Object, Object> fields = getEntityFields(getJsonInstance(EntityUtil.getJsonValue(json, "entity")));
     List<FieldSpec> list = new ArrayList<>();
     FieldSpec fieldSpec = FieldFactory.getIdFieldSpec(entityTemplate);
     list.add(fieldSpec);
 
     for (Object field : fields.keySet()) {
-      String type = getTypePropertiesFromField(fields.get(field.toString()).toString());
+      String type = getJsonValue(fields.get(field.toString()).toString(), "type");
       String size = getSizeFromField((fields.get(field.toString()).toString()));
       com.squareup.javapoet.AnnotationSpec column = AnnotationFactory.getFieldSizeAnnotation(entityTemplate, size);
       if (column != null) {
-        fieldSpec = 
-                 FieldSpec
-                 .builder(DynamicIdentifier.identifyType(type), field.toString())
-                 .addModifiers(Modifier.PRIVATE)
-                 .addAnnotation(column)
-                 .build();
-      }else {
-        fieldSpec = 
-            FieldSpec
-            .builder(DynamicIdentifier.identifyType(type), field.toString())
-            .addModifiers(Modifier.PRIVATE)
-            .build();
+        fieldSpec = FieldSpec.builder(DynamicIdentifier.identifyType(type), field.toString())
+            .addModifiers(Modifier.PRIVATE).addAnnotation(column).build();
+      } else {
+        fieldSpec = FieldSpec.builder(DynamicIdentifier.identifyType(type), field.toString())
+            .addModifiers(Modifier.PRIVATE).build();
       }
-      
+
       list.add(fieldSpec);
     }
     return list;
   }
-  
-  public static String getTypePropertiesFromField(String field) {
-    return EntityUtil.getTypeFromField(field);
+
+  public static String getJsonValue(String json, String key) {
+    return getJsonInstance(json).get(key).toString();
   }
 
-  public static String getJsonEntity(String json) {
-    return getJsonInstance(json).get("entity").toString();
-  }
-
-  public static String getJsonEntityName(String json) {
-    return getJsonInstance(json).get("entityName").toString();
-  }
-
-  public static String getJsonEndPoint(String json) {
-    return getJsonInstance(json).get("endPointName").toString();
-  }
-
-  public static String getJsonPackage(String json) {
-    return getJsonInstance(json).get("package").toString();
-  }
-
-  public static String getTypeFromField(String json) {
-    return getJsonInstance(json).get("type").toString();
-  }
-  
   public static String getSizeFromField(String json) {
     try {
       return getJsonInstance(json).get("size").toString();
     } catch (Exception e) {
       return null;
     }
-  }
-
-  public static String getClientIDFromJson(String json) {
-    return getJsonInstance(json).get("clientID").toString();
   }
 
   public static JSONObject getJsonInstance(String json) {

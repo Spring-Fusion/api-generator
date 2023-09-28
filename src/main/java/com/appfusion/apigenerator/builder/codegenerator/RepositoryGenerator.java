@@ -12,8 +12,8 @@ public class RepositoryGenerator {
   public static void generateRepository(String json) throws Exception {
     RepositoryTemplate repositoryTemplate = RepositoryTemplate.getDefaultTemplate(json);
     TypeSpec spec = RepositoryTemplate.getRepositoryTypeSpec(json, repositoryTemplate);
-    JavaFileDTO fileDTO = new JavaFileDTO(EntityUtil.getJsonPackage(json) + Packages.Repositories.value, spec,
-    EntityUtil.getClientIDFromJson(json));
+    JavaFileDTO fileDTO = new JavaFileDTO(EntityUtil.getJsonValue(json, "package") + Packages.Repositories.value, spec,
+    EntityUtil.getJsonValue(json, "clientID"));
     ResourceLoader.saveJavaFile(fileDTO);
   }
 

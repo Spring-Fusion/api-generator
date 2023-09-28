@@ -13,7 +13,7 @@ public class ControllerBuilder {
 
   public static TypeSpec buildTypeSpec(EntityDTO dto) {
     return TypeSpec
-        .classBuilder(EntityUtil.getJsonEntityName(dto.getJson()) + "Controller")
+        .classBuilder(EntityUtil.getJsonValue(dto.getJson(), "entityName") + "Controller")
         .addModifiers(Modifier.PUBLIC)
         .addField(FieldFactory.getRepositoryField(dto))
         .addMethod(MethodFactory.getThisControllerMethod(dto))

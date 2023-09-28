@@ -13,8 +13,8 @@ public class ControllerGenerator {
   public static void generateController(String json) throws Exception {
     ControllerTemplate controllerTemplate = ControllerTemplate.getControllerTemplate(json);
     EntityDTO dto = new EntityDTO(json, controllerTemplate);
-    JavaFileDTO fileDTO = new JavaFileDTO(EntityUtil.getJsonPackage(json) + Packages.Controller.value,
-    ControllerBuilder.buildTypeSpec(dto), EntityUtil.getClientIDFromJson(json));
+    JavaFileDTO fileDTO = new JavaFileDTO(EntityUtil.getJsonValue(json, "package") + Packages.Controller.value,
+    ControllerBuilder.buildTypeSpec(dto), EntityUtil.getJsonValue(json, "clientID"));
     ResourceLoader.saveJavaFile(fileDTO);
   }
 }
