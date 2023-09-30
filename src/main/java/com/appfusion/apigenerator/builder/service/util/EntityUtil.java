@@ -9,6 +9,7 @@ import javax.lang.model.element.Modifier;
 
 import org.json.JSONObject;
 
+import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.dynamicType.DynamicIdentifier;
 import com.appfusion.apigenerator.builder.factory.AnnotationFactory;
 import com.appfusion.apigenerator.builder.factory.FieldFactory;
@@ -62,6 +63,16 @@ public class EntityUtil {
       result.put(json, jsonObject.get(json.toString()));
     }
     return result;
+  }
+
+  public static String generateEntityGetAndSet(EntityDTO dto) {
+    Map<Object, Object> fields = getEntityFields(getJsonInstance(dto.getJson()));
+    StringBuilder getAndSet = new StringBuilder();
+
+    for (Object value : fields.keySet()) {
+      getAndSet.append("objectToUpdate." + "set" + value.toString() + "(objectUpdate." + "get" + value + "())");
+    }
+    return getAndSet.toString();
   }
 
 }

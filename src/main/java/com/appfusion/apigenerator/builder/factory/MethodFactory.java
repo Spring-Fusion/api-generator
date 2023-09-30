@@ -68,4 +68,16 @@ public class MethodFactory {
       .addStatement("repository.deleteAll()")
       .build();
   }
+
+  public static MethodSpec updateById(EntityDTO dto){
+    return MethodSpec
+    .methodBuilder("updateById")
+    .addModifiers(Modifier.PUBLIC)
+    .addStatement(EntityUtil.generateEntityGetAndSet(dto))
+    .build(); 
+  }
+
+
+
+
 }
