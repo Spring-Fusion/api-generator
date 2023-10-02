@@ -66,13 +66,20 @@ public class EntityUtil {
   }
 
   public static String generateEntityGetAndSet(EntityDTO dto) {
-    Map<Object, Object> fields = getEntityFields(getJsonInstance(dto.getJson()));
+    Map<Object, Object> fields = getEntityFields(getJsonInstance(EntityUtil.getJsonValue(dto.getJson(), "entity")));
     StringBuilder getAndSet = new StringBuilder();
 
     for (Object value : fields.keySet()) {
-      getAndSet.append("objectToUpdate." + "set" + value.toString() + "(objectUpdate." + "get" + value + "())");
+      String field = capitalizeFirstLetter(value.toString());
+      getAndSet.append(dto.getTemplate().getRunTimeEntityClass() + "."
+          + "set"
+          + field + "(" + dto.getTemplate().getRunTimeEntityClass() + "." + "get" + field + "())\n");
     }
     return getAndSet.toString();
+  }
+
+  public static String capitalizeFirstLetter(String input) {
+    return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
   }
 
 }
