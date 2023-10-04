@@ -47,6 +47,8 @@ public class AnnotationFactory {
     return AnnotationSpec.builder(entityTemplate.getIdAnnotation()).build();
   }
 
+  // TODO: Modificar os métodos para obter a Annotation utilizando apenas uma
+  // função.
   public static AnnotationSpec getAnnotationGetMapping(EntityDTO dto) {
     return AnnotationSpec.builder(dto.getTemplate().getGetEndPoint())
         .addMember("value", "$S", "/" + EntityUtil.getJsonValue(dto.getJson(), "endPointName") + "GetAll").build();
@@ -67,6 +69,11 @@ public class AnnotationFactory {
   public static AnnotationSpec getAnnotationDeleteMappingAll(EntityDTO dto) {
     return AnnotationSpec.builder(dto.getTemplate().getDeleteEndPoint())
         .addMember("value", "$S", "/" + EntityUtil.getJsonValue(dto.getJson(), "endPointName") + "DeleteAll").build();
+  }
+
+  public static AnnotationSpec getAnnotationUpdateById(EntityDTO dto) {
+    return AnnotationSpec.builder(dto.getTemplate().getUpdateByIdClass())
+        .addMember("value", "$S", "/" + EntityUtil.getJsonValue(dto.getJson(), "endPointName") + "UpdateById/{id}").build();
   }
 
   public static AnnotationSpec getFieldSizeAnnotation(EntityTemplate entityTemplate, String size) {

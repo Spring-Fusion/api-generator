@@ -69,12 +69,20 @@ public class EntityUtil {
     Map<Object, Object> fields = getEntityFields(getJsonInstance(EntityUtil.getJsonValue(dto.getJson(), "entity")));
     StringBuilder getAndSet = new StringBuilder();
 
+    getAndSet.append("if(object.isPresent()){");
+    getAndSet.append("\n");
+    getAndSet.append(EntityUtil.getJsonValue(dto.getJson(), "entityName") + " objectToUpdate = new " + EntityUtil.getJsonValue(dto.getJson(), "entityName") + "();");
+    getAndSet.append("\n");
     for (Object value : fields.keySet()) {
       String field = capitalizeFirstLetter(value.toString());
-      getAndSet.append(dto.getTemplate().getRunTimeEntityClass() + "."
+      getAndSet.append("\n");
+      getAndSet.append("objectToUpdate" + "."
           + "set"
-          + field + "(" + dto.getTemplate().getRunTimeEntityClass() + "." + "get" + field + "())\n");
+          + field + "(" + EntityUtil.getJsonValue(dto.getJson(), "entityName") + "." + "get" + field + "());");
     }
+    getAndSet.append("\n");
+    getAndSet.append("repository.save(objectToUpdate);");
+    getAndSet.append("}");
     return getAndSet.toString();
   }
 

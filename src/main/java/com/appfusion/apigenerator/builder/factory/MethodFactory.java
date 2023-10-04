@@ -73,11 +73,12 @@ public class MethodFactory {
         .methodBuilder("updateById")
         .addModifiers(Modifier.PUBLIC)
         .addParameter(ParameterFactory.getLongParameter())
+        .addAnnotation(AnnotationFactory.getAnnotationUpdateById(dto))
         .addParameter(ParameterFactory.entityParameter(dto))
-        .addStatement(dto.getTemplate().getRunTimeEntityClass() + " objectToUpdate = new  "
-            + dto.getTemplate().getRunTimeEntityClass() + "()")
+        .addStatement( "java.util.Optional<" + EntityUtil.getJsonValue(dto.getJson(), "entityName") + ">"
+        + " object = "
+            + "repository.findById(id)")
         .addStatement(EntityUtil.generateEntityGetAndSet(dto))
-        .addStatement("repository.save(objectToUpdate)")
         .build();
   }
 

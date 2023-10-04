@@ -11,6 +11,7 @@ public enum SpringClasses {
   PostMapping("PostMapping"),
   GetMapping("GetMapping"),
   DeleteMapping("DeleteMapping"),
+  PutMapping("PutMapping"),
   RequestBody("RequestBody"),
   Autowired("Autowired"),
   PathVariable("PathVariable"),
