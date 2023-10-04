@@ -22,6 +22,7 @@ public class ControllerBuilder {
         .addMethod(MethodFactory.getDeleteByIdMethod(dto))
         .addMethod(MethodFactory.getDeleteAll(dto))
         .addMethod(MethodFactory.getMethodGetById(dto))
+        .addMethod(MethodFactory.updateById(dto))
         .addAnnotation(AnnotationFactory.getRestControllerAnnotation(dto))
         .build();
   }

@@ -9,6 +9,7 @@ import javax.lang.model.element.Modifier;
 
 import org.json.JSONObject;
 
+import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.dynamicType.DynamicIdentifier;
 import com.appfusion.apigenerator.builder.factory.AnnotationFactory;
 import com.appfusion.apigenerator.builder.factory.FieldFactory;
@@ -62,6 +63,31 @@ public class EntityUtil {
       result.put(json, jsonObject.get(json.toString()));
     }
     return result;
+  }
+
+  public static String generateEntityGetAndSet(EntityDTO dto) {
+    Map<Object, Object> fields = getEntityFields(getJsonInstance(EntityUtil.getJsonValue(dto.getJson(), "entity")));
+    StringBuilder getAndSet = new StringBuilder();
+
+    getAndSet.append("if(object.isPresent()){");
+    getAndSet.append("\n");
+    getAndSet.append(EntityUtil.getJsonValue(dto.getJson(), "entityName") + " objectToUpdate = new " + EntityUtil.getJsonValue(dto.getJson(), "entityName") + "();");
+    getAndSet.append("\n");
+    for (Object value : fields.keySet()) {
+      String field = capitalizeFirstLetter(value.toString());
+      getAndSet.append("\n");
+      getAndSet.append("objectToUpdate" + "."
+          + "set"
+          + field + "(" + EntityUtil.getJsonValue(dto.getJson(), "entityName") + "." + "get" + field + "());");
+    }
+    getAndSet.append("\n");
+    getAndSet.append("repository.save(objectToUpdate);");
+    getAndSet.append("}");
+    return getAndSet.toString();
+  }
+
+  public static String capitalizeFirstLetter(String input) {
+    return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
   }
 
 }

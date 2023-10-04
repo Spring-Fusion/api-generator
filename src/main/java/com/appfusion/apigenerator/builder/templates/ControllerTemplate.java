@@ -8,6 +8,7 @@ import com.appfusion.apigenerator.builder.entityContent.RequestEndPointClassName
 import com.appfusion.apigenerator.builder.entityContent.RestControllerClassName;
 import com.appfusion.apigenerator.builder.entityContent.RunTimeEntityClassName;
 import com.appfusion.apigenerator.builder.entityContent.RunTimeRepositoryClassName;
+import com.appfusion.apigenerator.builder.entityContent.UpdateByIdClassName;
 import com.squareup.javapoet.ClassName;
 
 import lombok.Data;
@@ -23,9 +24,12 @@ public class ControllerTemplate {
   private ClassName deleteEndPoint;
   private ClassName requestBodyClass;
   private ClassName runTimeEntityClass;
+  private ClassName updateByIdClass;
 
   public ControllerTemplate(ClassName restController, ClassName autoWired, ClassName runTimeRepositoryClass,
-      ClassName requestEndPoint, ClassName getEndPoint, ClassName deleteEdnPoint, ClassName requestBodyClass, ClassName runTimeEntityClass) {
+      ClassName requestEndPoint, ClassName getEndPoint, ClassName deleteEdnPoint, ClassName requestBodyClass, ClassName runTimeEntityClass,
+      ClassName updateByIdClass
+      ) {
       this.restController = restController;
       this.autoWired = autoWired;
       this.runTimeRepositoryClass = runTimeRepositoryClass;
@@ -34,6 +38,7 @@ public class ControllerTemplate {
       this.deleteEndPoint = deleteEdnPoint;
       this.requestBodyClass = requestBodyClass;
       this.runTimeEntityClass = runTimeEntityClass;
+      this.updateByIdClass = updateByIdClass;
   }
 
   public static ControllerTemplate getControllerTemplate(String json) {
@@ -45,6 +50,8 @@ public class ControllerTemplate {
       new GetEndPontClassName().getContent(),
       new DeleteEndPointClassName().getContent(),
       new RequestBodyClassName().getContent(),
-      new RunTimeEntityClassName(json).getContent());
+      new RunTimeEntityClassName(json).getContent(),
+      new UpdateByIdClassName().getContent()
+      );
   }
 }
