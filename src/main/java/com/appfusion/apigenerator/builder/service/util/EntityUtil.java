@@ -71,14 +71,13 @@ public class EntityUtil {
 
     getAndSet.append("if(object.isPresent()){");
     getAndSet.append("\n");
-    getAndSet.append(EntityUtil.getJsonValue(dto.getJson(), "entityName") + " objectToUpdate = new " + EntityUtil.getJsonValue(dto.getJson(), "entityName") + "();");
-    getAndSet.append("\n");
+    getAndSet.append(EntityUtil.getJsonValue(dto.getJson(), "entityName") + " objectToUpdate = object.get();");
     for (Object value : fields.keySet()) {
       String field = capitalizeFirstLetter(value.toString());
       getAndSet.append("\n");
       getAndSet.append("objectToUpdate" + "."
           + "set"
-          + field + "(" + EntityUtil.getJsonValue(dto.getJson(), "entityName") + "." + "get" + field + "());");
+        + field + "(" + "entity" + "." + "get" + field + "());");
     }
     getAndSet.append("\n");
     getAndSet.append("repository.save(objectToUpdate);");
