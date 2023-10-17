@@ -30,9 +30,9 @@ public class MethodFactory {
     return MethodSpec
         .methodBuilder("getAll")
         .returns(ParameterizedTypeName.get(ClassName.get(java.util.List.class),
-            dto.getTemplate()
-                .getRunTimeEntityClass()))
-        .addAnnotation(AnnotationFactory.getAnnotationGetMapping(dto))
+        dto.getTemplate()
+        .getRunTimeEntityClass()))
+        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "GetAll"))
         .addModifiers(Modifier.PUBLIC)
         .addStatement("return repository.findAll()")
         .build();
@@ -43,7 +43,7 @@ public class MethodFactory {
         .methodBuilder("getById")
         .addParameter(ParameterFactory.getLongParameter())
         .returns(Object.class)
-        .addAnnotation(AnnotationFactory.getAnnotationGetMappingById(dto))
+        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "GetById/{id}"))
         .addModifiers(Modifier.PUBLIC)
         .addStatement("return repository.findById(id).get()")
         .build();
@@ -54,7 +54,7 @@ public class MethodFactory {
         .methodBuilder("deleteById")
         .addModifiers(Modifier.PUBLIC)
         .addParameter(ParameterFactory.getLongParameter())
-        .addAnnotation(AnnotationFactory.getAnnotationDeleteMapping(dto))
+        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "DeleteById/{id}"))
         .addStatement("repository.deleteById(id)")
         .build();
   }
@@ -63,7 +63,7 @@ public class MethodFactory {
     return MethodSpec
         .methodBuilder("deleteAll")
         .addModifiers(Modifier.PUBLIC)
-        .addAnnotation(AnnotationFactory.getAnnotationDeleteMappingAll(dto))
+        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "DeleteAll"))
         .addStatement("repository.deleteAll()")
         .build();
   }
@@ -73,7 +73,7 @@ public class MethodFactory {
         .methodBuilder("updateById")
         .addModifiers(Modifier.PUBLIC)
         .addParameter(ParameterFactory.getLongParameter())
-        .addAnnotation(AnnotationFactory.getAnnotationUpdateById(dto))
+        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "UpdateById/{id}"))
         .addParameter(ParameterFactory.entityParameter(dto))
         .addStatement( "java.util.Optional<" + EntityUtil.getJsonValue(dto.getJson(), "entityName") + ">"
         + " object = "
