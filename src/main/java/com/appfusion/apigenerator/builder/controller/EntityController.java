@@ -51,18 +51,18 @@ public class EntityController {
   @ApiResponses(value = {
     @ApiResponse(responseCode = "200", description = "success")
   })
-  @PostMapping("/generateProject")
-  public void generateProject(@RequestBody String clientId) throws Exception {
-    ResourceLoader.generateNewProject(clientId);
+  @PostMapping("/generateProject/{clientID}")
+  public void generateProject(@PathVariable String clientID) throws Exception {
+    ResourceLoader.generateNewProject(clientID);
   }
 
   @Operation(summary = "Publish a project")
   @ApiResponses(value = {
     @ApiResponse(responseCode = "200", description = "success")
   })
-  @PostMapping("/publishProject")
-  public void publishProject(@RequestBody String clientId) throws Exception{
-    ResourceLoader.publishProject(clientId);
+  @PostMapping("/publishProject/{clientID}")
+  public void publishProject(@PathVariable String clientID) throws Exception{
+    ResourceLoader.publishProject(clientID);
   }
 
   @Operation(summary = "Clean a project content")
