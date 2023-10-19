@@ -5,69 +5,145 @@
 
 [![Build Status](https://travis-ci.org/yourusername/projectname.svg?branch=master)](https://travis-ci.org/yourusername/projectname)
 
-## Description - Descrição
+## Description
 
-This Java-based API allows you to easily generate Spring projects with pre-built templates, making it simple to kickstart your development process. Whether you're a beginner or an experienced developer, this tool will save you time and effort in setting up a new project.
+This Java-based API allows you to easily generate Spring classes with pre-built templates, making it simple to kickstart your development process. Whether you're a beginner or an experienced developer, this tool will save you time and effort in setting up a new project.
 
-Esta API baseada em Java permite que você crie facilmente projetos Spring com modelos pré-construídos, tornando simples iniciar seu processo de desenvolvimento. Se você é um iniciante ou um desenvolvedor experiente, esta ferramenta economizará tempo e esforço na configuração de um novo projeto.
+### Key Features:
+🔷 Custom Entity Creation: Define your entities with custom fields, data types, sizes, and more, all through a simple request.
 
-## Table of Contents - Índice
+🔷 Automatic Generation of Controller, Repository, and Entity: Based on the provided specifications, the API Generator automatically creates the necessary classes, saving hours of manual coding.
 
-- [Getting Started - Começando](#getting-started---começando)
-- [Usage - Uso](#usage---uso)
-- [Contributing - Contribuindo](#contributing---contribuindo)
-- [Technologies Used - Tecnologias Usadas](#technologies-used---tecnologias-usadas)
-- [License - Licença](#license---licença)
+🔷 Flexible Customization: Choose the entity name, endpoint name, package, modifier, and more, ensuring that the generated code adapts to your specific needs.
 
-## Getting Started - Começando
+🔷 Support for Popular Technologies: Our project is built using Java, Spring Boot, Maven, PostgreSQL, Lombok, and integration with Swagger, so you can focus on what really matters: developing amazing features for your APIs.
+
+🔷 Boost Productivity: With the API Generator, you can accelerate API development and reduce human errors, allowing your team to focus on creating value for your customers.
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Technologies Used](#technologies-used)
+- [License](#license)
+
+## Getting Started 
 
 These instructions will help you get the project up and running on your local machine.
 
-Essas instruções o ajudarão a colocar o projeto em funcionamento em sua máquina local.
+### Prerequisites
 
-### Prerequisites - Pré-requisitos
-
-- Java 8 or higher - Java 8 ou superior
-- Maven - Maven
-- Git - Git
+- Java 8 or higher
+- Maven
+- Git 
 
 ### Installation - Instalação
 
-1. Clone the repository - Clone o repositório
+1. Clone the repository
 
 ```shell
 git clone https://github.com/gmcdr/api-generator.git
 ```
 
-2. Navigate to the project directory - Navegue até o diretório do projeto
+2. Navigate to the project directory
 
 ```shell
 cd api-generator
 ```
 
-3. Build the project - Compile o projeto
+3. Build the project
 
 ```shell
 mvn clean install
 ```
 
-4. Run the project - Execute o projeto
+4. Run the project 
 
 ```shell
 mvn spring-boot:run
 ```
 
-## Usage - Uso
+## Usage 
 
-Explain how to use your project once it's up and running. Provide examples and screenshots if possible.
+Table of Contents
+1. Save Entity Definition
+2. Generate Project
+3. Publish Project
+4. Create Entity
+1. Save Entity Definition
+This endpoint allows you to save an entity definition with a specified name, attributes, and metadata.
 
-Explique como usar seu projeto depois que ele estiver em funcionamento. Forneça exemplos e capturas de tela, se possível.
+Endpoint: POST http://localhost:8080/entity/saveEntity
 
-## Contributing - Contribuindo
+Request Body:
+```
+{
+    "entity": {
+        "name": {
+            "type": "string",
+            "size": "255"
+        },
+        "age": {
+            "type": "int",
+            "size": "255"
+        },
+        "email": {
+            "type": "string",
+            "size": "255"
+        },
+        "salary": {
+            "type": "double",
+            "size": "255"
+        },
+        "children": {
+            "type": "boolean"
+        },
+        "event": {
+            "type": "localDateTime"
+        }
+    },
+    "entityName": "Employee",
+    "endPointName": "employee",
+    "package": "com.appfusion.apigenerator.builder",
+    "modifier": "public",
+    "clientID": "test"
+}
+```
+
+```
+entity: An object describing the entity's attributes.
+entityName: The name of the entity.
+endPointName: The name for the endpoint.
+package: The package name.
+modifier: The access modifier for the entity.
+clientID: The client ID associated with this entity.
+```
+
+2. Generate Project
+This endpoint is used to generate a project based on the provided specifications.
+
+Endpoint: GET http://localhost:8080/entity/generateProject/test
+
+```test``` in the endpoint is used to identify the project to generate.
+
+3. Publish Project
+This endpoint allows you to publish a project.
+
+Endpoint: GET http://localhost:8080/entity/publishProject/test
+
+```test``` in the endpoint is used to identify the project to publish.
+
+4. Create Entity
+This endpoint is used to create an entity with a specified ID.
+
+Endpoint: POST http://localhost:8080/entity/createEntity/1204
+
+```1204``` in the endpoint is the entity ID to be created.
+
+## Contributing
 
 We welcome contributions from the community! If you'd like to contribute to this project, please follow these guidelines:
-
-Recebemos contribuições da comunidade! Se você deseja contribuir para este projeto, siga estas diretrizes:
 
 1. Fork the repository - Faça um fork do repositório
 2. Create a new branch - Crie um novo branch
@@ -76,8 +152,6 @@ Recebemos contribuições da comunidade! Se você deseja contribuir para este pr
 5. Submit a pull request - Envie um pull request
 
 For major changes, please open an issue first to discuss what you would like to change.
-
-Para alterações significativas, abra primeiro um problema para discutir o que você gostaria de mudar.
 
 ## Technologies Used - Tecnologias Usadas
 
@@ -91,7 +165,4 @@ Para alterações significativas, abra primeiro um problema para discutir o que 
 ## License - Licença
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE.md](LICENSE.md) para obter detalhes.
-
 ---
