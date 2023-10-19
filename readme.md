@@ -66,18 +66,28 @@ mvn spring-boot:run
 
 ## Usage 
 
-Table of Contents
-1. Save Entity Definition
-2. Generate Project
-3. Publish Project
-4. Create Entity
-1. Save Entity Definition
+Certainly, here's the README content in Markdown format:
+
+```markdown
+# API Endpoints README
+
+This document provides information about the API endpoints for a system generating and managing entities. These endpoints allow you to save and manipulate entity definitions, generate projects, publish projects, and create entities within the system.
+
+## Table of Contents
+
+- [1. Save Entity Definition](#1-save-entity-definition)
+- [2. Generate Project](#2-generate-project)
+- [3. Publish Project](#3-publish-project)
+- [4. Create Entity](#4-create-entity)
+
+## 1. Save Entity Definition
+
 This endpoint allows you to save an entity definition with a specified name, attributes, and metadata.
 
-Endpoint: POST http://localhost:8080/entity/saveEntity
+**Endpoint:** `POST http://localhost:8080/entity/saveEntity`
 
-Request Body:
-```
+**Request Body:**
+```json
 {
     "entity": {
         "name": {
@@ -111,35 +121,37 @@ Request Body:
 }
 ```
 
-```
-entity: An object describing the entity's attributes.
-entityName: The name of the entity.
-endPointName: The name for the endpoint.
-package: The package name.
-modifier: The access modifier for the entity.
-clientID: The client ID associated with this entity.
-```
+- `entity`: An object describing the entity's attributes.
+- `entityName`: The name of the entity.
+- `endPointName`: The name for the endpoint.
+- `package`: The package name.
+- `modifier`: The access modifier for the entity.
+- `clientID`: The client ID associated with this entity.
 
-2. Generate Project
+## 2. Generate Project
+
 This endpoint is used to generate a project based on the provided specifications.
 
-Endpoint: GET http://localhost:8080/entity/generateProject/test
+**Endpoint:** `GET http://localhost:8080/entity/generateProject/test`
 
-```test``` in the endpoint is used to identify the project to generate.
+- `test` in the endpoint is used to identify the project to generate.
 
-3. Publish Project
-This endpoint allows you to publish a project.
+## 3. Create Entity
 
-Endpoint: GET http://localhost:8080/entity/publishProject/test
-
-```test``` in the endpoint is used to identify the project to publish.
-
-4. Create Entity
 This endpoint is used to create an entity with a specified ID.
 
-Endpoint: POST http://localhost:8080/entity/createEntity/1204
+**Endpoint:** `POST http://localhost:8080/entity/createEntity/1204`
 
-```1204``` in the endpoint is the entity ID to be created.
+- `1204` in the endpoint is the entity ID to be created.
+```
+
+## 4. Publish Project
+
+This endpoint allows you to publish a project.
+
+**Endpoint:** `GET http://localhost:8080/entity/publishProject/test`
+
+- `test` in the endpoint is used to identify the project to publish.
 
 ## Contributing
 
@@ -161,8 +173,3 @@ For major changes, please open an issue first to discuss what you would like to 
 - PostgreSQL
 - Lombok
 - Swagger
-
-## License - Licença
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
----
