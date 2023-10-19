@@ -173,3 +173,5 @@ For major changes, please open an issue first to discuss what you would like to 
 - PostgreSQL
 - Lombok
 - Swagger
+
+[Buy Me a Coffee](https://www.buymeacoffee.com/gabrielreib)
