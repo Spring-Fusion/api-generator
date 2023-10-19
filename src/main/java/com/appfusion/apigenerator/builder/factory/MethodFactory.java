@@ -32,7 +32,7 @@ public class MethodFactory {
         .returns(ParameterizedTypeName.get(ClassName.get(java.util.List.class),
         dto.getTemplate()
         .getRunTimeEntityClass()))
-        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "GetAll"))
+        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "GetAll", dto.getTemplate().getGetEndPoint()))
         .addModifiers(Modifier.PUBLIC)
         .addStatement("return repository.findAll()")
         .build();
@@ -43,7 +43,7 @@ public class MethodFactory {
         .methodBuilder("getById")
         .addParameter(ParameterFactory.getLongParameter())
         .returns(Object.class)
-        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "GetById/{id}"))
+        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "GetById/{id}", dto.getTemplate().getGetEndPoint()))
         .addModifiers(Modifier.PUBLIC)
         .addStatement("return repository.findById(id).get()")
         .build();
@@ -54,7 +54,7 @@ public class MethodFactory {
         .methodBuilder("deleteById")
         .addModifiers(Modifier.PUBLIC)
         .addParameter(ParameterFactory.getLongParameter())
-        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "DeleteById/{id}"))
+        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "DeleteById/{id}", dto.getTemplate().getDeleteEndPoint()))
         .addStatement("repository.deleteById(id)")
         .build();
   }
@@ -63,7 +63,7 @@ public class MethodFactory {
     return MethodSpec
         .methodBuilder("deleteAll")
         .addModifiers(Modifier.PUBLIC)
-        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "DeleteAll"))
+        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "DeleteAll", dto.getTemplate().getDeleteEndPoint()))
         .addStatement("repository.deleteAll()")
         .build();
   }
@@ -73,7 +73,7 @@ public class MethodFactory {
         .methodBuilder("updateById")
         .addModifiers(Modifier.PUBLIC)
         .addParameter(ParameterFactory.getLongParameter())
-        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "UpdateById/{id}"))
+        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "UpdateById/{id}", dto.getTemplate().getUpdateByIdClass()))
         .addParameter(ParameterFactory.entityParameter(dto))
         .addStatement( "java.util.Optional<" + EntityUtil.getJsonValue(dto.getJson(), "entityName") + ">"
         + " object = "

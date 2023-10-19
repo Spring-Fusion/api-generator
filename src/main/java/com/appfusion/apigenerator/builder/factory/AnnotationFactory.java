@@ -4,6 +4,7 @@ import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 import com.appfusion.apigenerator.builder.templates.EntityTemplate;
 import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.ClassName;
 
 public class AnnotationFactory {
 
@@ -47,8 +48,8 @@ public class AnnotationFactory {
     return AnnotationSpec.builder(entityTemplate.getIdAnnotation()).build();
   }
 
-  public static AnnotationSpec getMethodAnotation(EntityDTO dto, String endPoint) {
-    return AnnotationSpec.builder(dto.getTemplate().getGetEndPoint())
+  public static AnnotationSpec getMethodAnotation(EntityDTO dto, String endPoint, ClassName method) {
+    return AnnotationSpec.builder(method)
         .addMember("value", "$S", "/"
             + EntityUtil.getJsonValue(dto.getJson(), "endPointName")
             + endPoint)
