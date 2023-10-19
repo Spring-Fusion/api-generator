@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/yourusername/projectname.svg?branch=master)](https://travis-ci.org/yourusername/projectname)
 
 ## Description
-
+ 
 This Java-based API allows you to easily generate Spring classes with pre-built templates, making it simple to kickstart your development process. Whether you're a beginner or an experienced developer, this tool will save you time and effort in setting up a new project.
 
 ### Key Features:
