@@ -66,8 +66,6 @@ mvn spring-boot:run
 
 ## Usage 
 
-Certainly, here's the README content in Markdown format:
-
 ```markdown
 # API Endpoints README
 
@@ -77,8 +75,8 @@ This document provides information about the API endpoints for a system generati
 
 - [1. Save Entity Definition](#1-save-entity-definition)
 - [2. Generate Project](#2-generate-project)
-- [3. Publish Project](#3-publish-project)
-- [4. Create Entity](#4-create-entity)
+- [3. Create Entity](#3-create-entity)
+- [4. Publish Project](#4-publish-project)
 
 ## 1. Save Entity Definition
 
@@ -157,15 +155,15 @@ This endpoint allows you to publish a project.
 
 We welcome contributions from the community! If you'd like to contribute to this project, please follow these guidelines:
 
-1. Fork the repository - Faça um fork do repositório
-2. Create a new branch - Crie um novo branch
-3. Make your changes - Faça suas alterações
-4. Test your changes - Teste suas alterações
-5. Submit a pull request - Envie um pull request
+1. Fork the repository
+2. Create a new branch
+3. Make your changes
+4. Test your changes
+5. Submit a pull request
 
 For major changes, please open an issue first to discuss what you would like to change.
 
-## Technologies Used - Tecnologias Usadas
+## Technologies Used
 
 - Java
 - Spring Boot
