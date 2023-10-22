@@ -66,7 +66,7 @@ mvn spring-boot:run
 
 ## Usage 
 
-```markdown
+
 # API Endpoints README
 
 This document provides information about the API endpoints for a system generating and managing entities. These endpoints allow you to save and manipulate entity definitions, generate projects, publish projects, and create entities within the system.
@@ -141,7 +141,6 @@ This endpoint is used to create an entity with a specified ID.
 **Endpoint:** `POST http://localhost:8080/entity/createEntity/1204`
 
 - `1204` in the endpoint is the entity ID to be created.
-```
 
 ## 4. Publish Project
 
