@@ -3,7 +3,6 @@
 
 # Api Generator
 
-[![Build Status](https://travis-ci.org/yourusername/projectname.svg?branch=master)](https://travis-ci.org/yourusername/projectname)
 
 ## Description
  
@@ -65,9 +64,6 @@ mvn spring-boot:run
 ```
 
 ## Usage 
-
-
-# API Endpoints README
 
 This document provides information about the API endpoints for a system generating and managing entities. These endpoints allow you to save and manipulate entity definitions, generate projects, publish projects, and create entities within the system.
 
