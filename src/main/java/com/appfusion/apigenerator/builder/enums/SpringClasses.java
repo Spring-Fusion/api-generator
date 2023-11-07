@@ -1,12 +1,7 @@
 package com.appfusion.apigenerator.builder.enums;
 
 public enum SpringClasses {
- 
-  Entity("Entity"),
-  Id("Id"),
-  Data("Data"),
-  GeneratedValue("GeneratedValue"),
-  GenerationType("GenerationType"),
+  
   JpaRepository("JpaRepository"),
   PostMapping("PostMapping"),
   GetMapping("GetMapping"),
@@ -15,9 +10,7 @@ public enum SpringClasses {
   RequestBody("RequestBody"),
   Autowired("Autowired"),
   PathVariable("PathVariable"),
-  RestController("RestController"),
-  Column("Column");
-  
+  RestController("RestController");
   
   public String value;
   

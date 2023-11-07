@@ -5,7 +5,7 @@ import com.appfusion.apigenerator.builder.enums.SpringPackages;
 import com.appfusion.apigenerator.builder.interfaces.EntityContent;
 import com.squareup.javapoet.ClassName;
 
-public class AutoWiredClassName implements EntityContent{
+public class AutoWiredClassName implements EntityContent {
 
   @Override
   public ClassName getContent() {
