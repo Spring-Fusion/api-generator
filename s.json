@@ -1,0 +1,37 @@
+{
+  "entity": {
+      "name": {
+          "type": "string",
+          "size": "255"
+      },
+      "age": {
+          "type": "int",
+          "size": "255"
+      },
+      "email": {
+          "type": "string",
+          "size": "255"
+      },
+      "salary": {
+          "type": "double",
+          "size": "255"
+      },
+      "children": {
+          "type": "boolean"
+      },
+      "event": {
+          "type": "localDateTime"
+      }
+  },
+  "entityName": "Employee",
+  "endPointName": "employee",
+  "package": "com.appfusion.apigenerator.builder",
+  "modifier": "public",
+  "clientID": "test",
+  "annotations":{
+    "table":{
+      "name":"employee",
+      "schema":"public"
+    }
+  }
+}
