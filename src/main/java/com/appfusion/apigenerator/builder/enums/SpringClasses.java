@@ -1,8 +1,7 @@
 package com.appfusion.apigenerator.builder.enums;
 
 public enum SpringClasses {
- 
-  Data("Data"),
+  
   JpaRepository("JpaRepository"),
   PostMapping("PostMapping"),
   GetMapping("GetMapping"),
