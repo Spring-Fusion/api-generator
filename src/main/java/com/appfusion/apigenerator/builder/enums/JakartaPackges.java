@@ -6,7 +6,8 @@ public enum JakartaPackges {
   Id("Id"),
   GeneratedValue("GeneratedValue"),
   GenerationType("GenerationType"),
-  Column("Column");
+  Column("Column"),
+  Table("Table");
 
   public String value;
 
