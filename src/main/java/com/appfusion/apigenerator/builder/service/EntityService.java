@@ -8,26 +8,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.appfusion.apigenerator.builder.codegenerator.EntityGenerator;
-import com.appfusion.apigenerator.builder.entities.PostEntity;
-import com.appfusion.apigenerator.builder.repositories.PostEntityRepository;
+import com.appfusion.apigenerator.builder.entities.ModelEntity;
+import com.appfusion.apigenerator.builder.repositories.EntityRepository;
 
+/**
+ * This class represents a service for managing entities.
+ * 
+ * @author Gabriel Reis
+ */
 @Service
 public class EntityService {
 
   @Autowired
-  private PostEntityRepository repository;
+  private EntityRepository repository;
 
-  public EntityService(PostEntityRepository repository) {
+  public EntityService(EntityRepository repository) {
     this.repository = repository;
   }
 
-  public ResponseEntity<PostEntity> saveEntity(String requestBody) {
-    PostEntity entity = new PostEntity();
+  public ResponseEntity<ModelEntity> saveEntity(String requestBody) {
+    ModelEntity entity = new ModelEntity();
     entity.setEntity(requestBody);
-    return new ResponseEntity<PostEntity>(repository.save(entity), HttpStatus.OK);
+    return new ResponseEntity<ModelEntity>(repository.save(entity), HttpStatus.OK);
   }
 
-  public ResponseEntity<PostEntity> generateEntity(Long id) throws Exception {
+  public ResponseEntity<ModelEntity> generateEntity(Long id) throws Exception {
     String entityContent = getEntityContentById(id);
     EntityGenerator generator = new EntityGenerator();
     generator.generateDynamicEntity(entityContent);
@@ -35,14 +40,14 @@ public class EntityService {
   }
 
   public String getEntityContentById(Long id) {
-    Optional<PostEntity> postEntity = repository.findById(id);
-    PostEntity entity = null;
-    String result =  null;
+    Optional<ModelEntity> postEntity = repository.findById(id);
+    ModelEntity entity = null;
+    String result = null;
     if (postEntity.isPresent()) {
       entity = postEntity.get();
     }
-    
-    if (entity!=null) {
+
+    if (entity != null) {
       result = entity.getEntity();
     }
     return result;

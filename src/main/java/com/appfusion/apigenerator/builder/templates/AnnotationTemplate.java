@@ -7,6 +7,12 @@ import com.appfusion.apigenerator.builder.jakartaContent.Table;
 import com.squareup.javapoet.ClassName;
 
 import lombok.Data;
+
+/**
+ * This class represents a template for generating annotations.
+ * 
+ * @author Gabriel Reis
+ */
 @Data
 public class AnnotationTemplate {
 
@@ -15,7 +21,13 @@ public class AnnotationTemplate {
   public AnnotationTemplate(ClassName table) {
     this.table = table;
   }
-  public static Map<String , ClassName> getAnnotations(){
+
+  /**
+   * Returns a map of annotations.
+   * 
+   * @return a map of annotations
+   */
+  public static Map<String, ClassName> getAnnotations() {
     Map<String, ClassName> result = new HashMap<>();
     result.put("table", new Table().getContent());
     return result;

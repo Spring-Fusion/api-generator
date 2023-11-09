@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.appfusion.apigenerator.builder.entities.PostEntity;
+import com.appfusion.apigenerator.builder.entities.ModelEntity;
 import com.appfusion.apigenerator.builder.resourceLoader.FolderHandler;
 import com.appfusion.apigenerator.builder.service.EntityService;
 
@@ -40,7 +40,7 @@ public class EntityController {
       @ApiResponse(responseCode = "200", description = "success")
   })
   @PostMapping("/saveEntity")
-  public ResponseEntity<PostEntity> saveEntityReq(@RequestBody String entity) {
+  public ResponseEntity<ModelEntity> saveEntityReq(@RequestBody String entity) {
     return service.saveEntity(entity);
   }
 

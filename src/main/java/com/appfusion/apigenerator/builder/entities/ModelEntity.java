@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class PostEntity {
+public class ModelEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
