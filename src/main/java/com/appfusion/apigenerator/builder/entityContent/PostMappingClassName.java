@@ -5,7 +5,13 @@ import com.appfusion.apigenerator.builder.enums.SpringPackages;
 import com.appfusion.apigenerator.builder.interfaces.EntityContent;
 import com.squareup.javapoet.ClassName;
 
-public class RequestEndPointClassName implements EntityContent{
+/**
+ * This class represents the content of a Spring PostMapping annotation's class
+ * name.
+ * 
+ * @author Gabriel Reis
+ */
+public class PostMappingClassName implements EntityContent {
 
   @Override
   public ClassName getContent() {

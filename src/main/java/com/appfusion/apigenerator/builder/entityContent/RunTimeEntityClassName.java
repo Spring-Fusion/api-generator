@@ -6,6 +6,14 @@ import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 import com.squareup.javapoet.ClassName;
 import lombok.Data;
 
+/**
+ * Represents a runtime entity class name.
+ * This class implements the EntityContent interface.
+ * It contains a JSON string and provides a method to get the class name as a
+ * ClassName object.
+ * 
+ * @author Gabriel Reis
+ */
 @Data
 public class RunTimeEntityClassName implements EntityContent {
 

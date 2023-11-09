@@ -5,6 +5,12 @@ import com.appfusion.apigenerator.builder.enums.SpringPackages;
 import com.appfusion.apigenerator.builder.interfaces.EntityContent;
 import com.squareup.javapoet.ClassName;
 
+/**
+ * Implementation of EntityContent interface that returns the ClassName of
+ * Spring's GetMapping annotation.
+ * 
+ * @author Gabriel Reis
+ */
 public class GetEndPontClassName implements EntityContent {
 
   @Override

@@ -7,6 +7,13 @@ import com.appfusion.apigenerator.builder.interfaces.EntityContent;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 import com.squareup.javapoet.ClassName;
 
+/**
+ * This class implements the EntityContent interface and provides the
+ * implementation for getting the class name of a
+ * Spring JPA repository interface.
+ * 
+ * @author Gabriel Reis
+ */
 public class JpaRepositoryClassName implements EntityContent {
 
   @Override

@@ -5,6 +5,12 @@ import com.appfusion.apigenerator.builder.enums.SpringPackages;
 import com.appfusion.apigenerator.builder.interfaces.EntityContent;
 import com.squareup.javapoet.ClassName;
 
+/**
+ * Represents an implementation of the EntityContent interface that returns the
+ * ClassName of a Jakarta Persistence Entity.
+ * 
+ * @author Gabriel Reis
+ */
 public class EntityClassName implements EntityContent {
 
   @Override

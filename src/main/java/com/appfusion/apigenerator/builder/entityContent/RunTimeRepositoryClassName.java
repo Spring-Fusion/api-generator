@@ -7,6 +7,12 @@ import com.squareup.javapoet.ClassName;
 
 import lombok.Data;
 
+/**
+ * Represents a class that generates the runtime repository class name for a
+ * given entity.
+ * 
+ * @author Gabriel Reis
+ */
 @Data
 public class RunTimeRepositoryClassName implements EntityContent {
   private String json;
