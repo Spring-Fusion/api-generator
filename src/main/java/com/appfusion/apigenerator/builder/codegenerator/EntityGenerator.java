@@ -5,7 +5,16 @@ import org.springframework.http.ResponseEntity;
 
 import com.appfusion.apigenerator.builder.entities.PostEntity;
 
+/**
+ * This class is responsible for generating dynamic entities based on a JSON
+ * input.
+ * It uses ModelGenerator, RepositoryGenerator, and ControllerGenerator to
+ * generate the necessary components.
+ * 
+ * @author Gabriel Reis
+ */
 public class EntityGenerator {
+
   public ResponseEntity<PostEntity> generateDynamicEntity(String json) throws Exception {
     ModelGenerator.generateModel(json);
     RepositoryGenerator.generateRepository(json);
