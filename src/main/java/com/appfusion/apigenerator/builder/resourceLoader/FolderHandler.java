@@ -15,9 +15,13 @@ import com.appfusion.apigenerator.builder.DTOs.JavaFileDTO;
 import com.appfusion.apigenerator.builder.enums.ServerPaths;
 import com.squareup.javapoet.JavaFile;
 
-public class ResourceLoader {
+/**
+ * This class provides utility methods for handling folders and files in a project.
+ * @author Gabriel Reis
+ */
+public class FolderHandler {
 
-  private static Logger LOG = LoggerFactory.getLogger(ResourceLoader.class);
+  private static Logger LOG = LoggerFactory.getLogger(FolderHandler.class);
 
   public static void saveJavaFile(JavaFileDTO fileDTO) throws Exception {
     JavaFile file = JavaFile.builder(fileDTO.getJsonPackage(), fileDTO.getSpec()).build();
