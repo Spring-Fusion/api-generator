@@ -43,7 +43,7 @@ public class EntityController {
     @ApiResponse(responseCode = "200", description = "success")
   })
   @PostMapping("/createEntity/{id}")
-  public void generatePostEntity(@PathVariable Long id) throws Exception {
+  public void generateModelEntity(@PathVariable Long id) throws Exception {
     service.generateEntity(id);
   }
 

@@ -7,7 +7,7 @@ import com.appfusion.apigenerator.builder.entities.PostEntity;
 
 public class EntityGenerator {
   public ResponseEntity<PostEntity> generateDynamicEntity(String json) throws Exception {
-    PostGenerator.generatePost(json);
+    ModelGenerator.generateModel(json);
     RepositoryGenerator.generateRepository(json);
     ControllerGenerator.generateController(json);
     RepositoryGenerator.generateRepository(json);
