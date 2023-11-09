@@ -12,8 +12,8 @@ import com.squareup.javapoet.TypeSpec;
 public class ModelGenerator {
 
   public static void generateModel(String json) throws Exception {
-    ModelTemplate postTemplate = ModelTemplate.getModelTemplate();
-    TypeSpec spec = ModelBuilder.getModelTypeSpec(json, postTemplate);
+    ModelTemplate modelTemplate = ModelTemplate.getModelTemplate();
+    TypeSpec spec = ModelBuilder.getModelTypeSpec(json, modelTemplate);
     JavaFileDTO fileDTO = new JavaFileDTO(EntityUtil.getJsonValue(json, "package") + Packages.Entities.value, spec,
     EntityUtil.getJsonValue(json, "clientID"));
     ResourceLoader.saveJavaFile(fileDTO);
