@@ -1,5 +1,10 @@
 package com.appfusion.apigenerator.builder.enums;
 
+/**
+ * Enum class representing common Spring packages used in the project.
+ * 
+ * ]@author Gabriel Reis
+ */
 public enum SpringPackages {
 
   JakartaPersistence("jakarta.persistence"),

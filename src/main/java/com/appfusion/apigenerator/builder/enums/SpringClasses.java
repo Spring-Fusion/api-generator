@@ -1,5 +1,10 @@
 package com.appfusion.apigenerator.builder.enums;
 
+/**
+ * Enum containing commonly used Spring classes.
+ * 
+ * @author Gabriel Reis
+ */
 public enum SpringClasses {
   
   JpaRepository("JpaRepository"),

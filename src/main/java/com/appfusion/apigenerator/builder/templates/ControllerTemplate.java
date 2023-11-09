@@ -4,11 +4,11 @@ import com.appfusion.apigenerator.builder.entityContent.AutoWiredClassName;
 import com.appfusion.apigenerator.builder.entityContent.DeleteEndPointClassName;
 import com.appfusion.apigenerator.builder.entityContent.GetEndPontClassName;
 import com.appfusion.apigenerator.builder.entityContent.RequestBodyClassName;
-import com.appfusion.apigenerator.builder.entityContent.RequestEndPointClassName;
+import com.appfusion.apigenerator.builder.entityContent.PostMappingClassName;
 import com.appfusion.apigenerator.builder.entityContent.RestControllerClassName;
 import com.appfusion.apigenerator.builder.entityContent.RunTimeEntityClassName;
 import com.appfusion.apigenerator.builder.entityContent.RunTimeRepositoryClassName;
-import com.appfusion.apigenerator.builder.entityContent.UpdateByIdClassName;
+import com.appfusion.apigenerator.builder.entityContent.PutMappingClassName;
 import com.squareup.javapoet.ClassName;
 
 import lombok.Data;
@@ -56,11 +56,11 @@ public class ControllerTemplate {
         new RestControllerClassName().getContent(),
         new AutoWiredClassName().getContent(),
         new RunTimeRepositoryClassName(json).getContent(),
-        new RequestEndPointClassName().getContent(),
+        new PostMappingClassName().getContent(),
         new GetEndPontClassName().getContent(),
         new DeleteEndPointClassName().getContent(),
         new RequestBodyClassName().getContent(),
         new RunTimeEntityClassName(json).getContent(),
-        new UpdateByIdClassName().getContent());
+        new PutMappingClassName().getContent());
   }
 }

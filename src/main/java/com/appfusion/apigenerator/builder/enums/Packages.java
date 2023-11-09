@@ -1,5 +1,10 @@
 package com.appfusion.apigenerator.builder.enums;
 
+/**
+ * Enum representing the packages used in the application.
+ * 
+ * @author Gabriel Reis
+ */
 public enum Packages {
 
   Repositories(".repositories"),
