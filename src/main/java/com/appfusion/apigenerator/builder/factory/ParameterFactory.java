@@ -4,26 +4,31 @@ import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.entityContent.PathVariebleClassName;
 import com.squareup.javapoet.ParameterSpec;
 
+/**
+ * This class provides factory methods for creating ParameterSpec objects.
+ * 
+ * @author Gabriel Reis
+ */
 public class ParameterFactory {
 
   public static ParameterSpec getLongParameter() {
     return ParameterSpec
-      .builder(Long.class, "id")
-      .addAnnotation(new PathVariebleClassName().getContent())
-      .build();
+        .builder(Long.class, "id")
+        .addAnnotation(new PathVariebleClassName().getContent())
+        .build();
   }
 
   public static ParameterSpec repositoryParameter(EntityDTO dto) {
     return ParameterSpec
-      .builder(dto.getTemplate().getRunTimeRepositoryClass(), "repository")
-      .build();
+        .builder(dto.getTemplate().getRunTimeRepositoryClass(), "repository")
+        .build();
   }
 
   public static ParameterSpec entityParameter(EntityDTO dto) {
     return ParameterSpec
-      .builder(dto.getTemplate().getRunTimeEntityClass(), "entity")
-      .addAnnotation(AnnotationFactory.getAnnotationrequestBodyClass(dto))
-      .build();
+        .builder(dto.getTemplate().getRunTimeEntityClass(), "entity")
+        .addAnnotation(AnnotationFactory.getAnnotationrequestBodyClass(dto))
+        .build();
   }
 
 }

@@ -6,6 +6,14 @@ import com.appfusion.apigenerator.builder.templates.ModelTemplate;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 
+/**
+ * This class provides static methods to generate AnnotationSpec objects used in
+ * the generation of Java code.
+ * The AnnotationSpec objects are used to add annotations to classes, methods,
+ * fields, and parameters.
+ * 
+ * @author Gabriel Reis
+ */
 public class AnnotationFactory {
 
   public static AnnotationSpec getRestControllerAnnotation(EntityDTO dto) {

@@ -8,6 +8,15 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 
+/**
+ * This class is responsible for generating MethodSpec objects for the given
+ * EntityDTO.
+ * It contains static methods for generating methods such as constructors,
+ * getters, setters, and CRUD operations.
+ * 
+ * @author Gabriel Reis
+ * 
+ */
 public class MethodFactory {
 
   public static MethodSpec getThisControllerMethod(EntityDTO dto) {
@@ -30,8 +39,8 @@ public class MethodFactory {
     return MethodSpec
         .methodBuilder("getAll")
         .returns(ParameterizedTypeName.get(ClassName.get(java.util.List.class),
-        dto.getTemplate()
-        .getRunTimeEntityClass()))
+            dto.getTemplate()
+                .getRunTimeEntityClass()))
         .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "GetAll", dto.getTemplate().getGetEndPoint()))
         .addModifiers(Modifier.PUBLIC)
         .addStatement("return repository.findAll()")
@@ -54,7 +63,8 @@ public class MethodFactory {
         .methodBuilder("deleteById")
         .addModifiers(Modifier.PUBLIC)
         .addParameter(ParameterFactory.getLongParameter())
-        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "DeleteById/{id}", dto.getTemplate().getDeleteEndPoint()))
+        .addAnnotation(
+            AnnotationFactory.getMethodAnotation(dto, "DeleteById/{id}", dto.getTemplate().getDeleteEndPoint()))
         .addStatement("repository.deleteById(id)")
         .build();
   }
@@ -73,10 +83,11 @@ public class MethodFactory {
         .methodBuilder("updateById")
         .addModifiers(Modifier.PUBLIC)
         .addParameter(ParameterFactory.getLongParameter())
-        .addAnnotation(AnnotationFactory.getMethodAnotation(dto, "UpdateById/{id}", dto.getTemplate().getUpdateByIdClass()))
+        .addAnnotation(
+            AnnotationFactory.getMethodAnotation(dto, "UpdateById/{id}", dto.getTemplate().getUpdateByIdClass()))
         .addParameter(ParameterFactory.entityParameter(dto))
-        .addStatement( "java.util.Optional<" + EntityUtil.getJsonValue(dto.getJson(), "entityName") + ">"
-        + " object = "
+        .addStatement("java.util.Optional<" + EntityUtil.getJsonValue(dto.getJson(), "entityName") + ">"
+            + " object = "
             + "repository.findById(id)")
         .addStatement(EntityUtil.generateEntityGetAndSet(dto))
         .build();
