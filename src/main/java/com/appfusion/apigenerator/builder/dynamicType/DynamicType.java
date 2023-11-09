@@ -6,6 +6,12 @@ import java.util.Map;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents a dynamic type that contains classes for string, boolean, int,
+ * double, LocalDateTime, and Instant.
+ * 
+ * @author Gabriel Reis
+ */
 @Data
 @NoArgsConstructor
 public class DynamicType {
@@ -23,7 +29,7 @@ public class DynamicType {
       Class<?> doubleType,
       Class<?> localDateTime,
       Class<?> instant) {
-    this.stringType = stringType;
+    this.stringType = stringType; 
     this.booleanType = booleanType;
     this.intType = intType;
     this.doubleType = doubleType;
@@ -31,6 +37,12 @@ public class DynamicType {
     this.instant = instant;
   }
 
+  /**
+   * Returns a map of dynamic types, where each type is represented by a string
+   * key and a corresponding class value.
+   *
+   * @return a map of dynamic types
+   */
   public static Map<String, Class<?>> getDynamicType() {
     Map<String, Class<?>> result = new HashMap<>();
     result.put("boolean", new DynamicBoolean().getType());
