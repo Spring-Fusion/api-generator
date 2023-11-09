@@ -36,7 +36,6 @@ public class AnnotationFactory {
   public static AnnotationSpec getGeneratedValueAnnotation(EntityTemplate entityTemplate) {
     return AnnotationSpec.builder(entityTemplate.getGeneratedValueAnnotation())
         .addMember("strategy", "$T.AUTO", entityTemplate.getGenerationTypeAnnotation()).build();
-
   }
 
   public static AnnotationSpec getColumnAnnotation(EntityTemplate entityTemplate, String size) {
