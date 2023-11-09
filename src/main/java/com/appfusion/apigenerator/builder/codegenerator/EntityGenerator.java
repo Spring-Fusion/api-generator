@@ -3,7 +3,7 @@ package com.appfusion.apigenerator.builder.codegenerator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.appfusion.apigenerator.builder.entities.PostEntity;
+import com.appfusion.apigenerator.builder.entities.ModelEntity;
 
 /**
  * This class is responsible for generating dynamic entities based on a JSON
@@ -15,7 +15,7 @@ import com.appfusion.apigenerator.builder.entities.PostEntity;
  */
 public class EntityGenerator {
 
-  public ResponseEntity<PostEntity> generateDynamicEntity(String json) throws Exception {
+  public ResponseEntity<ModelEntity> generateDynamicEntity(String json) throws Exception {
     ModelGenerator.generateModel(json);
     RepositoryGenerator.generateRepository(json);
     ControllerGenerator.generateController(json);

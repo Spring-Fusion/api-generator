@@ -8,6 +8,12 @@ import com.appfusion.apigenerator.builder.service.util.EntityUtil;
 import com.appfusion.apigenerator.builder.templates.ModelTemplate;
 import com.squareup.javapoet.TypeSpec;
 
+/**
+ * This class is responsible for building a TypeSpec object representing a model
+ * class based on a JSON string and a ModelTemplate object.
+ * 
+ * @author Gabriel Reis
+ */
 public class ModelBuilder {
 
   public static JakartaAnnotationFactory jakartaAnnotationFactory = new JakartaAnnotationFactory();

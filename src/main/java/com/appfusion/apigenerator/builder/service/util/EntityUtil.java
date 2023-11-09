@@ -16,6 +16,11 @@ import com.appfusion.apigenerator.builder.factory.FieldFactory;
 import com.appfusion.apigenerator.builder.templates.ModelTemplate;
 import com.squareup.javapoet.FieldSpec;
 
+/**
+ * This class provides utility methods for working with entity objects.
+ * 
+ * @author Gabriel Reis
+ */
 public class EntityUtil {
 
   public static List<FieldSpec> getFields(String json, ModelTemplate entityTemplate) {
@@ -77,7 +82,7 @@ public class EntityUtil {
       getAndSet.append("\n");
       getAndSet.append("objectToUpdate" + "."
           + "set"
-        + field + "(" + "entity" + "." + "get" + field + "());");
+          + field + "(" + "entity" + "." + "get" + field + "());");
     }
     getAndSet.append("\n");
     getAndSet.append("repository.save(objectToUpdate);");
