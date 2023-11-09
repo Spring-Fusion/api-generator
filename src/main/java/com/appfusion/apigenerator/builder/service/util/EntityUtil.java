@@ -13,12 +13,12 @@ import com.appfusion.apigenerator.builder.DTOs.EntityDTO;
 import com.appfusion.apigenerator.builder.dynamicType.DynamicIdentifier;
 import com.appfusion.apigenerator.builder.factory.AnnotationFactory;
 import com.appfusion.apigenerator.builder.factory.FieldFactory;
-import com.appfusion.apigenerator.builder.templates.EntityTemplate;
+import com.appfusion.apigenerator.builder.templates.ModelTemplate;
 import com.squareup.javapoet.FieldSpec;
 
 public class EntityUtil {
 
-  public static List<FieldSpec> getFields(String json, EntityTemplate entityTemplate) {
+  public static List<FieldSpec> getFields(String json, ModelTemplate entityTemplate) {
     Map<Object, Object> fields = getEntityFields(getJsonInstance(EntityUtil.getJsonValue(json, "entity")));
     List<FieldSpec> list = new ArrayList<>();
     FieldSpec fieldSpec = FieldFactory.getIdFieldSpec(entityTemplate);
