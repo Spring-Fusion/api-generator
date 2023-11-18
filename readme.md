@@ -6,7 +6,7 @@
 
 ## Description
  
-This Java-based API allows you to easily generate Spring classes with pre-built templates, making it simple to kickstart your development process. Whether you're a beginner or an experienced developer, this tool will save you time and effort in setting up a new project.
+This Java-based API allows you to easily generate Spring classes, making it simple to kickstart your development process. Whether you're a beginner or an experienced developer, this tool will save you time and effort in setting up a new project.
 
 ### Key Features:
 🔷 Custom Entity Creation: Define your entities with custom fields, data types, sizes, and more, all through a simple request.
@@ -166,5 +166,6 @@ For major changes, please open an issue first to discuss what you would like to 
 - PostgreSQL
 - Lombok
 - Swagger
+- Java Poet
 
 [Buy Me a Coffee](https://www.buymeacoffee.com/gabrielreib)
