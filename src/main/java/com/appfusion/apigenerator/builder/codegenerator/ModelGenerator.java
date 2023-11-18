@@ -2,7 +2,6 @@ package com.appfusion.apigenerator.builder.codegenerator;
 
 import com.appfusion.apigenerator.builder.DTOs.JavaFileDTO;
 import com.appfusion.apigenerator.builder.enums.Packages;
-import com.appfusion.apigenerator.builder.factory.JakartaAnnotationFactory;
 import com.appfusion.apigenerator.builder.resourceLoader.FolderHandler;
 import com.appfusion.apigenerator.builder.service.builder.ModelBuilder;
 import com.appfusion.apigenerator.builder.service.util.EntityUtil;
