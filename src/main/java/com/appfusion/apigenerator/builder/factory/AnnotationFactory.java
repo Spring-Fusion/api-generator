@@ -58,8 +58,8 @@ public class AnnotationFactory {
   public static AnnotationSpec getMethodAnotation(EntityDTO dto, String endPoint, ClassName method) {
     return AnnotationSpec.builder(method)
         .addMember("value", "$S", "/"
-            + EntityUtil.getJsonValue(dto.getJson(), "endPointName")
-            + endPoint)
+        + EntityUtil.getJsonValue(dto.getJson(), "endPointName")
+        + endPoint)
         .build();
   }
 
