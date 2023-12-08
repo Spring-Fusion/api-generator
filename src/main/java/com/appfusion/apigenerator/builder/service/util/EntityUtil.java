@@ -28,7 +28,13 @@ public class EntityUtil {
     List<FieldSpec> list = new ArrayList<>();
     FieldSpec fieldSpec = FieldFactory.getIdFieldSpec(entityTemplate);
     list.add(fieldSpec);
+    buildObjectField(json, entityTemplate, fieldSpec, fields);
+    list.add(fieldSpec);
+    return list;
+  }
 
+  public static void buildObjectField(String json, ModelTemplate entityTemplate, FieldSpec fieldSpec,
+      Map<Object, Object> fields) {
     for (Object field : fields.keySet()) {
       String type = getJsonValue(fields.get(field.toString()).toString(), "type");
       String size = getSizeFromField((fields.get(field.toString()).toString()));
@@ -40,10 +46,7 @@ public class EntityUtil {
         fieldSpec = FieldSpec.builder(DynamicIdentifier.identifyType(type), field.toString())
             .addModifiers(Modifier.PRIVATE).build();
       }
-
-      list.add(fieldSpec);
     }
-    return list;
   }
 
   public static String getJsonValue(String json, String key) {
@@ -73,24 +76,27 @@ public class EntityUtil {
   public static String generateEntityGetAndSet(EntityDTO dto) {
     Map<Object, Object> fields = getEntityFields(getJsonInstance(EntityUtil.getJsonValue(dto.getJson(), "entity")));
     StringBuilder getAndSet = new StringBuilder();
-
     getAndSet.append("if(object.isPresent()){");
     getAndSet.append("\n");
     getAndSet.append(EntityUtil.getJsonValue(dto.getJson(), "entityName") + " objectToUpdate = object.get();");
-    for (Object value : fields.keySet()) {
-      String field = capitalizeFirstLetter(value.toString());
-      getAndSet.append("\n");
-      getAndSet.append("objectToUpdate" + "."
-          + "set"
-          + field + "(" + "entity" + "." + "get" + field + "());");
-    }
+    addFields(fields, getAndSet);
     getAndSet.append("\n");
     getAndSet.append("repository.save(objectToUpdate);");
     getAndSet.append("}");
     return getAndSet.toString();
   }
 
-  public static String capitalizeFirstLetter(String input) {
+  public static void addFields(Map<Object, Object> fields, StringBuilder getAndSet) {
+    for (Object value : fields.keySet()) {
+      String field = addFieldPattern(value.toString());
+      getAndSet.append("\n");
+      getAndSet.append("objectToUpdate" + "."
+          + "set"
+          + field + "(" + "entity" + "." + "get" + field + "());");
+    }
+  }
+
+  public static String addFieldPattern(String input) {
     return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
   }
 
