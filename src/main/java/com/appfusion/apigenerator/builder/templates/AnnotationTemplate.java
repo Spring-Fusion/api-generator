@@ -3,7 +3,7 @@ package com.appfusion.apigenerator.builder.templates;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.appfusion.apigenerator.builder.jakartaContent.Table;
+import com.appfusion.apigenerator.builder.jakartaContent.classLevel.Table;
 import com.squareup.javapoet.ClassName;
 
 import lombok.Data;

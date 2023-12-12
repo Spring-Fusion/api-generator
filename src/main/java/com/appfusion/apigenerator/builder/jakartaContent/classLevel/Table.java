@@ -1,4 +1,4 @@
-package com.appfusion.apigenerator.builder.jakartaContent;
+package com.appfusion.apigenerator.builder.jakartaContent.classLevel;
 
 import com.appfusion.apigenerator.builder.enums.JakartaPackges;
 import com.appfusion.apigenerator.builder.enums.SpringPackages;
