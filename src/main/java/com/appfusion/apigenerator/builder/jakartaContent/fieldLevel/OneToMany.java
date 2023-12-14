@@ -7,6 +7,8 @@ import com.squareup.javapoet.ClassName;
 
 /**
  * Represents a one-to-many Annotation.
+ * 
+ *  @author Gabriel Reis
  */
 public class OneToMany implements EntityContent {
 

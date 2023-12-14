@@ -5,6 +5,8 @@ import com.squareup.javapoet.ClassName;
 
 /**
  * Represents a one-to-one Annotation.
+ * 
+ * @author Gabriel Reis
  */
 public class OneToOne implements EntityContent {
 

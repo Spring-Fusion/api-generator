@@ -7,6 +7,8 @@ import com.squareup.javapoet.ClassName;
 
 /**
  * Represents a ManyToOne Annotation.
+ * 
+ *  @author Gabriel Reis
  */
 public class ManyToOne implements EntityContent {
 
