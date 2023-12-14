@@ -12,7 +12,11 @@ public enum JakartaPackges {
   GeneratedValue("GeneratedValue"),
   GenerationType("GenerationType"),
   Column("Column"),
-  Table("Table");
+  Table("Table"),
+  ManyToOne("ManyToOne"),
+  ManyToMany("ManyToMany"),
+  OneToMany("OneToMany"),
+  OneToOne("OneToOne");
 
   public String value;
 

@@ -11,7 +11,8 @@ public enum SpringPackages {
   JpaRepository("org.springframework.data.jpa.repository"),
   WebBind("org.springframework.web.bind.annotation"),
   BeansFactory("org.springframework.beans.factory.annotation"),
-  Lombok("lombok");
+  Lombok("lombok"),
+  ValidationConstraints("jakarta.validation.constraints");
   
   public String value;
   
